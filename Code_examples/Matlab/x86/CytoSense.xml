@@ -1,0 +1,3864 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+CytoSense
+</name>
+</assembly>
+<members>
+<member name="P:CytoSense.Serializing.Serializing.VersionTrackableClass.needsUpgrade(CytoSense.Serializing.Serializing.VersionTrackableClass)">
+	<summary>
+ Usage: program a property Release in the class in question of a VersionTrackableClass. Initialize this VersionTrackableClass hardcoded in the base class: Public Release as VersionTrackableClass(release date).Then when a class needs to be checked for compatability:            
+ </summary>
+	<value>If true this means some of the variables may not be properly initialized</value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Serializing.Serializing.SaveToFile(System.String,System.Object)">
+	<summary>
+ Saves an object as a serialized stream. 
+ </summary>
+	<param name="filename"></param>
+	<param name="C">Object to be serialized</param>
+	<remarks>Existing files will be overwritten without questioning
+ Please use SerializeObject class if progress information is needed</remarks>
+</member><member name="T:CytoSense.Serializing.Serializing">
+	<summary>
+ Function for saving or opening general serialized objects
+ </summary>
+</member><member name="M:CytoSense.Serializing.SerializeObject.#ctor(System.Object,System.String)">
+	<summary>
+ When using this constructor, this instance will automatically start serializing the data object to the file in filename
+ </summary>
+	<param name="data">The object to be serialized</param>
+	<param name="filename">The file in which the object should be serialized</param>
+	<remarks>Existing files will be overwritten without questioning!</remarks>
+</member><member name="M:CytoSense.Serializing.SerializeObject.#ctor(System.String)">
+	<summary>
+ When using this constructor, this instance will automatically start dederializing the file from filename. The deserialized object can be retrieved using the data property.
+ </summary>
+	<param name="filename">The file which should be deserialized</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Serializing.SerializeObject.save_worker_DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+	<summary>
+ Saves an _data object as a serialized stream in _filename. 
+ </summary>
+	<remarks>Existing files will be overwritten without questioing</remarks>
+</member><member name="T:CytoSense.Serializing.SerializeObject">
+	<summary>
+ This class provides a manner to keep track of the (de)serialzing process by providing a Progress property.
+ This should be done by handling the ProgresChanged event.
+ </summary>
+	<remarks>Loading process does not work properly :( 
+ The deserializing itself seems to take time to. I don't know who to check the progress of the BF stream.
+ Loading Progress will be set 100 far to early</remarks>
+</member><member name="M:CytoSense.Scheduling.task.getLocationIsOK(CytoSense.Data.GPS.GPSCoordinate)">
+	<summary>
+ Checks if this task is allowed to run according to the GPS settings, if no settings are available returns true
+ </summary>
+	<param name="currentPosition"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Scheduling.task.ShutDown_Afterwards">
+	<summary>
+ Makes CytoUSB shutdown the computer
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Scheduling.ScheduleGPSSetting.allowedToRun(CytoSense.Data.GPS.GPSCoordinate)">
+	<summary>
+ Checks if the current position is within the forbidden _range
+ </summary>
+	<param name="currentposition"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Scheduling.ScheduleGPSSetting">
+	<summary>
+ This settings is currently implemented based on the use case that the instrument may not run in the harbor when running a autonomous schedule. 
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Scheduling.Schedule.hasExternalTriggerTask">
+	<summary>
+ Returns true if one of the tasks is a externaltriggertask
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Scheduling.Schedule.instrumentCanShutdown(System.Int32)">
+	<summary>
+ Checks if the next scheduled measurement is far enough in the future to merit a complete instrument shutdown.
+ If the next measurement is to close, a shutdown may create to much time overhead caused by laser warm up.
+ </summary>
+	<param name="shutdownDelay"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.ReStartFlags.#ctor">
+	<summary>
+ Private because we do not want to instantiate this class.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.ReStartFlags">
+	<summary>
+ Manage some flags to indicate why the system is (Re)Starting.  Currently we handle a
+ Wathcdog restart, and a turnon timer restart.  We keep these flags by creating
+ (and deleting) files in the same directory that contains the schedule file.
+ 
+ Currently this is usefull only for the system in brazil, it needs more work
+ to make it generic.  Basicly what it does is that if the system starts because 
+ of a wathcdog timer or a turn on timer, and there is a measurement scheduled, it will
+ start a new measurement.  Regardless of the actual time.
+ I will need ot do some magic in case of a turnon timer that fires to early, it needs
+ to be at least several hours until the next one.
+ This will be the simplest possible solution.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Scheduling.IntervalTask.IsActive">
+	<summary>
+ Return True if the task is currently active, I.e. the task is
+   - Enabled
+   - Start LT Now and Now LT Finish
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Scheduling.IntervalTask.RequestStart(System.DateTime,System.Boolean)">
+	<summary>
+ If we are restarted because of the watchdog, or because of the turnontimer, we simply allways do a measurement.
+ </summary>
+	<param name="t"></param>
+	<param name="ignorelaststart"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Scheduling.ExternalTriggerTask.TimeToStart">
+	<summary>
+ Not applicable
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.PlotSettings.DotPlotDefinition.#ctor(System.String,CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ General constructor
+ </summary>
+</member><member name="M:CytoSense.PlotSettings.DotPlotDefinition.#ctor(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Constructor without name, the name is constructed from the axis titles.
+ </summary>
+</member><member name="T:CytoSense.PlotSettings.DotPlotDefinition">
+	<summary>
+ For now only the dotplot definition is here, probably more should be added later on. 
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.PlotSettings.DotplotDefComparer">
+	<summary>
+ Custom comparer for the DotplotDefinition class
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.SmartTriggerSettings.ChannelName">
+	<summary>
+ Contains the name of the used channel 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.SmartTriggerSettings.ChannelListID">
+	<summary>
+ Contains the ID of the used channel in cytosettings.channellist
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurements.Started_By">
+	<summary>
+ Denotes who has started the measurements. Consider using the property AutonomousMode instead.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurements.MeasurementsTime(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Calculates the total time to be taken if this measurement configuration is performed
+ </summary>
+	<param name="cytosettings"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurements.MeasurementsVolume(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Calculates the total used volume if this measurement configuration is performed
+ </summary>
+	<param name="cytosettings"></param>
+	<value></value>
+	<returns>Volume in uL</returns>
+	<remarks>Adds 5% for certainty</remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurements.CurrentMeasurement">
+	<summary>
+ Returns the measurements which CytoUSB is performing during acquiring
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.MeasurementSettings.Measurement.setCytoSettings(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Manually set CytoSettings. To be used for backwards compatibility if no CytoSettings were saved with the measurementsettings.
+ </summary>
+	<param name="c"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurement.RepeatID">
+	<summary>
+ Keeps track on how maniest measurement this is. (Only  important if repeat &gt; 1)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.MeasurementSettings.Measurement.StopAfterTime">
+	<summary>
+ Depreciated
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="F:CytoSense.MeasurementSettings.Measurement._BSTCheck">
+	<summary>
+ Property is readonly now, it remains for backwards compatibility.  The BST system was redesigned,
+ so this setting is no longer used.  It is replaced with configuration that is independent of the
+ measurement. (For biocide), and with a new optiont hat does a beads measurement only.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.MeasurementSettings.Measurement.getMemorySize">
+	<summary>
+ Returns buffer size for one channel
+ </summary>
+	<returns></returns>
+	<remarks>Multiply by numberofchannels to get total memorysize for one block</remarks>
+</member><member name="M:CytoSense.MeasurementSettings.Measurement.getTriggerLevel1mV(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Depreciated. Use getTriggerLevel1mV() instead
+ </summary>
+	<param name="cytosettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.MeasurementSettings.Measurement.getFlowrate">
+	<summary>
+ CytoSettings need to be set in order for this to work!
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.MeasurementSettings.Measurement.getTriggerChannels">
+	<summary>
+ Gets a list of the selected triggerlevels.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.#ctor(System.Int32)">
+	<summary>
+ Legacy CC3 constructor.
+ </summary>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.#ctor(CytoSense.Data.DataFileWrapper,CytoSense.Data.Analysis.CytoSet)">
+	<summary>
+ Creates and IIF-object from a selection set, ready to be serialized.
+ </summary>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.#ctor(CytoSense.Data.DataFileWrapper,System.Collections.Generic.List{CytoSense.CytoSettings.ChannelWrapper},System.Collections.Generic.List{CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector},System.Collections.Generic.List{System.Single},System.Collections.Generic.List{System.Single})">
+	<summary>
+ Creates an IIF-object that can be directly serialized to file, using channellist channelwrappers
+ </summary>
+	<remarks>Throws InvalidIIFParametersException with descriptive text if the parameters are impossible. </remarks>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.channelWrappersToHardwareChannelsWithChecks(CytoSense.Data.DataFileWrapper,System.Collections.Generic.List{CytoSense.CytoSettings.ChannelWrapper},System.Collections.Generic.List{CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector})">
+	<summary>
+ Converts channelwrapper objects to their corresponding hardwarechannels, if possible. Otherwise throws an InvalidIIFParametersException with text.
+ </summary>
+	<param name="parameters">Needed because some parameter/channel parameters are allowable (TOF for example)</param>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.#ctor(CytoSense.Data.DataFileWrapper,System.Collections.Generic.List{CytoSense.CytoSettings.channel},System.Collections.Generic.List{CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector},System.Collections.Generic.List{System.Single},System.Collections.Generic.List{System.Single})">
+	<summary>
+ Creates an IIF-object that can be directly serialized to file, using hardware channels
+ </summary>
+	<remarks>Throws InvalidIIFParametersException with descriptive text if the parameters are impossible. </remarks>
+</member><member name="M:CytoSense.MeasurementSettings.IIFParameters.placeReadableString">
+	<summary>
+ Generates the readable string representation of the selected parameters, and places it in this object. Also returns that value.
+ </summary>
+</member><member name="P:CytoSense.Data.ParticleHandling.CytoImage.particleWidth">
+	<summary>
+ The maximum width (as opposed to length) of the current particle, calculated from the picture. Calculated on demand and needs an autocropped image.
+ </summary>
+	<value></value>
+	<returns>The estimated particle width in micrometer</returns>
+	<remarks>Use particleWidthStart and particleWidthEnd for locations in the image </remarks>
+</member><member name="T:CytoSense.Data.ParticleHandling.CytoImage.BackgroundException">
+	<summary>
+ They were allready inside this class and are used with full namespace in 
+ CC3, so I leave them here.  I created a baseclass for these exceptions
+ to allow easy handling in CC4.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.CytoImage.forceAutoCrop">
+	<summary>
+ Forces to autocrop the image in this particle, without scalebar. Is used in CytoClus to precalculate the images.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.CytoImage.autoCrop(System.IO.MemoryStream,System.Drawing.Image,System.Int32)">
+	<summary>
+ A customizable shared autocrop function, for general use.
+ </summary>
+	<param name="sourceStream">The base image</param>
+	<param name="backgroundImage">The background image used for flatfield correction, default van be found in cytosettings.</param>
+	<param name="margin">The margin of free pixels around the cropped particle, default is 25</param>
+	<returns></returns>
+	<remarks>If the autocropping doesn't yield a successful result, the original image is returned</remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.CytoImage.getWidthPoints(System.Drawing.Image)">
+	<summary>
+ Gets the startpoint and endpoint of the maximum particle width in the given image. 
+ This should be a background-corrected autocropped image for valid results!!
+ </summary>
+	<param name="sourceImage"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.splitData(System.Byte[],System.Int32,System.Int32@,System.Int32,System.Collections.Generic.List{System.Int32}@,System.Collections.Generic.List{System.Int32}@,System.Int32,System.Collections.Generic.List{System.Byte},System.Collections.Generic.List{System.Int32})">
+	<summary>
+Input:  A array of bytes
+Output: A jagged array containing the pulse data for each separate channel
+Output data is separated by two rows of -255
+Throws a descriptive exception if no sinc sequences are found
+ </summary>
+	<param name="rdbytes"></param>
+	<param name="nChannels">the number of fluorescence data channels</param>
+	<param name="particleCount"></param>
+	<param name="totChannels">the total no. of channels</param>
+	<param name="ends"></param>
+	<param name="starts"></param>
+	<param name="DSPChnNo"></param>
+	<param name="imgdata">(optionally) specifies a list of bytes corresponding to the raw data of imaged and matched particles</param>
+	<param name="emptyChn"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.splitData(System.Byte[],CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Depreciated. Kanaal volgorde zit verkeerd om...
+ </summary>
+	<param name="MixedParticle"></param>
+	<param name="cytosettings"></param>
+	<returns></returns>
+	<remarks>Depreciated. Komt uit CytoUSB, en is heul ranzig... Liever niet gebruiken dus</remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.getParticles(System.Collections.Generic.List{CytoSense.Data.SegmentedData.RawParticle},CytoSense.CytoSettings.CytoSenseSetting@,CytoSense.MeasurementSettings.Measurement@)">
+	<summary>
+ Creates particles from data_sp continumode particle buffer
+ </summary>
+	<param name="rawParticles">Data_sp from datafile</param>
+	<param name="CytoSettings">Needed to create particle information</param>
+	<param name="measurementInfo">Needed to create particle information</param>
+	<returns>Array of cytosense particles</returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.splitToParticles(System.Byte[],CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement,System.Int32,CytoSense.Data.Data.Cluster[],System.Single[])">
+	<summary>
+ Parallel implementation of splitToParticles demultiplex function. Splits the data into nCores chunks and processes those concurrently.
+ If nCores is 1, nothing is parallized and no extra overhead is created.
+ </summary>
+	<param name="multiplexedData"></param>
+	<param name="CytoSettings"></param>
+	<param name="measurementInfo"></param>
+	<param name="nCores"></param>
+	<param name="sets"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.findNextSync(System.Byte[],System.Int32,System.Int32,CytoSense.CytoSettings.CytoSenseSetting@)">
+	<summary>
+ Wrapper function for good old Gijs Partâh function
+ </summary>
+	<param name="multiplexedData"></param>
+	<param name="n"></param>
+	<param name="nMax"></param>
+	<param name="CytoSettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.splitToParticles(System.Byte[],CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement,System.Boolean,CytoSense.Data.Data.Cluster[],System.Single[])">
+	<summary>
+ Will split the multiplexedData to particles. Updated to use CytoClus splitting of muxed data
+ </summary>
+	<param name="multiplexedData"></param>
+	<param name="CytoSettings">Takes channel information from CytoSense, and connect it to right channel in each particle</param>
+	<returns></returns>
+	<remarks>Not parallized</remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.checkParticle(CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ This function performs 3 checks: 
+    i) a particle must be at least 4 samples. 
+    ii) a particle may not contain loose sync plateaus. 
+    iii) a particle may not contain any channel which starts with a sync
+ I made the last check a little stronger. It now checks if there are at least 3 channels that have
+ a sync value in the first 3 samples or the last 3 samples.  The original check resulted in quite a
+ large number of false positive in certain files.
+ </summary>
+	<param name="p"></param>
+	<returns></returns>
+	<remarks>Only did very simple optimizations, storing everything that is used more then once in a local 
+ variable instead of going through all proeprties and array indexes each time.  This made my test 
+ (checking 457000 particles) go from 16.67 to 1.83 seconds. 
+ Currently
+ For Each channel
+      -  For each sample value
+         - For i =0 to 3.
+  So each sample value is looked at 4 times.  These are all close together, there
+  should be a lot in the cahce, but still. If we do it only once, that should 
+  save us some time.
+  Instead of looking at 4 values each time, we could simply look at each byte only
+  once, keeping track of how big the sequence is, and once we find 4 we have the 
+  plato, if we find a value that does not match, we reset the counter to 0.
+  A next step, since we are looking for a sequence of 4 in a row that is usually
+  not present, is to not look at every byte, but skip forward 4 each time we do not
+  have a match, and then when we do have a match we do something complicated. 
+  Because most particles will not contain this data, this stepping 4 ahead each time
+ (very loosely basded on Boyer Moore stringsearch, but much simpler since we are looking
+ looking for sequence of 4 simular characters) May in theory give us another factor of 4.
+  4 is the theroretical max, if the syncpulse value never occured.
+ The original implementation, when loading a 450000 particle file, checkParticle was 
+ repsonible for 9990 ms and the current one, is responsible for 910 ms, so less then a 
+ second. There is still room for improvement, but for now there is more to gain in 
+ other locations. I think.
+  </remarks>
+</member><member name="M:CytoSense.Data.RawDataHandling.findFirstSINC(System.Byte[],System.Int32,System.Int32,System.Int32,System.Int32,System.UInt32)">
+	<summary>
+ Good old Gijs parthâh function...
+ </summary>
+	<param name="data"></param>
+	<param name="totchannels"></param>
+	<param name="nchannels"></param>
+	<param name="DSPChnNo"></param>
+	<param name="starti"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.PreSiftSetting.ChannelID">
+	<summary>
+ Returns the channel id in the machine channel list. Only use when sure that machine can not have changed since creating of the presiftsettings! Otherwise use .channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.#ctor(System.Byte[],System.Int32,CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement)">
+	<summary>
+ Constructor for particle when multiplexed byte is avialable. Only used for DSP IIF processing. 
+ </summary>
+	<param name="MultiPlexedData"></param>
+	<param name="ID"></param>
+	<param name="CytoSettings"></param>
+	<param name="measurement"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.Length">
+	<summary>
+ 'Array length in samples, so not the CytoClus length feature!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.TOF">
+	<summary>
+ Transition Of Focus of this particle: the total length of the signal in um.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.TimeOfArrival">
+	<summary>
+ Contains the absolute time the particle arrived
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.getMultiPlexedByteData">
+	<summary>
+ Creates multiplexed byte data, as like it would come directly from the CytoSense hardware
+ </summary>
+	<returns></returns>
+	<remarks>Copy of createMultiPlexedByteData from CytoSense.Data</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.triggered(System.Int32,System.Byte,System.Byte)">
+	<summary>
+ Check if the one of the triggers was high at sampleID 
+ </summary>
+	<param name="sampleID"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.ID">
+	<summary>
+ Represents a unique number for this particle in this file. 
+ </summary>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.setID(System.Int32)">
+	<summary>
+ Only to be used by parallel implementation of splittoparticles
+ </summary>
+	<param name="id"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.ChannelData_Virtual">
+	<summary>
+ Returns channeldata for a channel that was defined later in software. 0 = FWScurvature, 1 = flredsplit, 2 = ratiochannel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>0 is only available if the machine is curvature enabled, 1 and 2 need to be initialized in CytoClus!</remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.getChannelByType(CytoSense.CytoSettings.ChannelTypesEnum)">
+	<summary>
+ Find a channel by typematch. Returns the first match (in case of HS/LS channels this might be undesired).
+ May return nothing if the channel is not present or if the visualisationmode is not suitable.
+ </summary>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.getChannelByName(System.String)">
+	<summary>
+ Find a channel by exact name match. May return nothing if the channel is not present or if the visualisationmode is not suitable.
+ </summary>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.addFLREDsplitVirtualChannel(CytoSense.CytoSettings.CytoSenseSetting,CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware@)">
+	<summary>
+ Specialized function for splitting up flredchannel with double spaced laser setup
+ </summary>
+	<param name="cytosettings"></param>
+	<param name="flredChannel"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.addRatioChannel(CytoSense.Data.ParticleHandling.Channel.ChannelData@,CytoSense.Data.ParticleHandling.Channel.ChannelData@,CytoSense.Data.ParticleHandling.Channel.ChannelData_ratioChannel.channelOperator@)">
+	<summary>
+ Only used by CC3. Needs a thorough look before it can be used in cc4
+ </summary>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.ParticleVector(System.Int32,CytoSense.Data.ParticleHandling.Particle.NormalizeMode,System.Boolean)">
+	<summary>
+ Interpolates all channels to prefered size, adds them to one big vector
+ </summary>
+	<param name="PreferedInterPolateLength">Interpolation length. Set to 0 to disable interpolation</param>
+	<param name="cutZeros">Due to the smoothing process used, the first and last data sample are always pulled to zero, if visualisation is not in order they can cut off for speed</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.ParticleVector_fft(System.Int32)">
+	<summary>
+ Calculate a seperate fft of each channel, append to one big vector
+ </summary>
+	<param name="fftsamples">Determines how many samples will be kept in result fft per channel. Zeros are padded when fft was to small, or fft is cutoff if too big</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.ParticleVector(System.Int32,CytoSense.Data.ParticleHandling.Particle.VectorMode,CytoSense.Data.ParticleHandling.Particle.NormalizeMode)">
+	<summary>
+ Interpolates all channels to prefered size, adds them to one big vector.
+ </summary>
+	<param name="PreferedInterPolateLength">This option allows for strechting/reducing of the pulsehape part of the particlevector to the specified length. Set to 0 to disable.</param>
+	<param name="normalize">This option allows for normalisation of the pulsehape part of the particlevector</param>
+	<param name="mode">Allows for selection of which parts are included in the returned particlevector</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.getParameterVector">
+	<summary>
+ Puts all CytoClus parameters in an array
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Particle.getSVD">
+	<summary>
+ Returns a list of singular values of this particle. The SVD is done over a matrix with the rows as channels 
+ and the columns as time instants.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.op_Equality(CytoSense.Data.ParticleHandling.Particle,CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ Compares two particles by means of their DSPChannel data (SWS in most cases). Only returns true if the data matches exactly.
+ </summary>
+	<returns></returns>
+	<remarks>Original access Data a swel as Data?Raw, causing the smoothing to run during the loading
+ of the file, even if not required. Changed this to only use data raw for this comparison.
+ </remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Particle.op_Inequality(CytoSense.Data.ParticleHandling.Particle,CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ Compares two particles by means of their DSPChannel data (SWS in most cases). Only returns false if the data matches exactly.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.ParticleHandling.Particle">
+	<summary>
+ NOTE,WARNING: DO NOT LOCK ON A PARTICLE. In the object I am using SyncLock Me to 
+ protect (re)generating of the channel data. This is generally frowned upon as it is 
+ risky to lock on somthing that is pulicly available.
+ Anyboy anywhere could also do a SynchLock on the particle causing a deadlock or other synch issues.  
+ The problem is that there is not really a good candidate for locking, as the _channelData object
+ itsself will be replaced, so we cannot use that to lock, and it can be Nothing.  The same is
+ true for the other objects.
+ But creatin a new object just for locking, as is the normal cases, costs us 24 bytes per object
+ plus 8 for the reference, making it 32 bytes per particle, and with 457000 particle that is
+ another 15 Megabyte.  Not that much, given the completely loaded file takes 1.2 Gigabyte.
+ But still significant.  SO I will got with SyncLock Me
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Generator.getRandomParticle">
+	<summary>
+ Selects at random a particle from the loaded datafile
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Generator.getRandomBlock(CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement)">
+	<summary>
+ Selects at random a couple of particles until a block has a little more then filled, then cuts the beginning and ending to simulate instrument behavior
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Generator.generateBlock(CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement,System.Boolean)">
+	<summary>
+ Generates random particles to fill a little more than a block, then cuts the endings to simulate instrument behavior
+ </summary>
+	<param name="cytosettings"></param>
+	<param name="measurement"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Generator.cutBlock(System.Collections.Generic.List{System.Byte},System.Int32,System.Int32)">
+	<summary>
+ Cut out a random chunk of the data, to simulate particles not fitting exactly 
+ </summary>
+	<param name="pbytes"></param>
+	<param name="blocksize"></param>
+	<param name="nChannels"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.ParticleReducer">
+	<summary>
+ Subsamples the particle array. [0-1]
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFileWrapper.setArrivalTimesFromBlocks">
+	<summary>
+ For multiplexed byte based datafiles only the arrival times are not saved during measuring and need to be reconstructed
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFileWrapper.getParticleByID(System.Int32)">
+	<summary>
+ Returns a particle with the given particle.ID. Returns nothing if that particle can't be found
+ </summary>
+</member><member name="M:CytoSense.Data.DataFileWrapper.getIndexOfParticle(CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ Finds the given particle in the SplittedParticles array, and returns its index. Returns -1 if the particle can't be found
+ </summary>
+</member><member name="M:CytoSense.Data.DataFileWrapper.findImagesInSegment">
+	<summary>
+ In the segmented datafile, seperate segments exist for IIF particles. Due to dataflow restrictions in CytoUSB, these particles are copies 
+ from the other segments (AllParticleData or SmartriggerData segments) extended with image data. The function below finds any particle in the
+ currently loaded segments that are also in the image segment.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFileWrapper.findDSPImages">
+	<summary>
+ Locate the IIFImages in the splittedparticles. 
+ Every IIFImage is already matched against pulseshape data, but due to a discrepancy 
+ between how the particles are cut in realtime and using the normal splittoparticle 
+ function, some IIFImages are not in the Splittedparticles.
+ 
+ The particle and images are in the order they were received, so the next match should
+ allways be further in the particle array.  So if we have a match, then the next image
+ should allways belong to a particle that is further down the line.
+ TODO: Replace calls to _dataFile.DSPIIF.particles(i, True), with direct access to
+ the array. (Then again, a max of approx. 150 calls, so may not be a big issue.)
+ NOTE:  In theory the loop:                 
+    For j = 0 To numParticles - 1
+ Should run from partIdx to numParticles, because the next image should always be further in the 
+ file then the previous.  But that results in large differences with current implementation.
+ However, this does not completely mathc the old implementation, it is possible for
+ CytoUsb to (incorrectly) match particles in the wrong order.
+ Because of that, if we do not find a mtach we start looking back from the current partIdx
+ to the front of the array.  This way we still consider all particles the same as the old
+ implementation.
+ </summary>
+	<remarks>Unfound particles are placed in a list in the datafilewrapper.iif-properties</remarks>
+</member><member name="M:CytoSense.Data.DataFileWrapper.GetImageIDs">
+	<summary>
+ Returns the locations of particles with images in the splittedparticles list
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.Concentration">
+	<summary>
+ Returns concentration (parts/uL), uses method set by ConcentrationMode. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.ActualConcentration">
+	<summary>
+ Returns concentration (parts/uL), uses method set by ConcentrationMode. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ Calculates concentration as measured directly by the concentration counter. 
+ For this only the hardware triggering matters, smart triggering, file reduction etc does not.
+ </summary>
+	<remarks>
+ A horrible name of course, but preferred over OriginalConcentration by coinflip (Kevin vs Bouke):
+ You flipped 1 coin of type Dutch €1:
+ Timestamp: 2013-02-12 16:49:48 UTC
+ via random.org
+ </remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.Concentration(CytoSense.Data.ConcentrationModeEnum)">
+	<summary>
+ Returns the concentration in the specified mode. If returns concentration of -1 the mode is not available.
+ Automatically adjust for smart triggering of CC reduction
+ </summary>
+	<param name="mode"></param>
+	<value></value>
+	<returns>concentratin in parts/uL</returns>
+	<remarks>Recalculates every time the mode changes</remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.ActualConcentration(CytoSense.Data.ConcentrationModeEnum)">
+	<summary>
+ Returns concentration (parts/uL), uses method set by the argument. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ Calculates concentration as measured directly by the concentration counter. 
+ For this only the hardware triggering matters, smart triggering, file reduction etc does not.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.ConcentrationMode">
+	<summary>
+ Selects which concentration count is to be used. Recommend to leave at automatic mode. 
+ If however automatic mode fails, a manual choice can be made here. 
+ When in automatic mode it returns -1, no concentration count is available
+ When in another mode it returns -1, the chosen concentration count is not available
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Recommended: automatic</remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.numberOfPictures">
+	<summary>
+ Stored in the measurment settings in newer files, but not in older ones, so we leave the property here, for compatibility,
+ but we use the one from measurement info when available.  If not we check the SplittedParticles, and if
+ that fails, it means someone is trying to do a header only load of a segmented datafile that does not
+ contain the NumberOfPictures in the header info field.  This should happen rarely, as these files are not widely used.
+ In that case we just return a -1.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.pumpedVolume">
+	<summary>
+ Total volume by samplepumpspeed (uL/s) * duration (s) = Vol (uL)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.analyzedVolume">
+	<summary>
+ Analyzed volume by #particles (parts)/ concentration (parts/uL) = Volume (uL). 
+ Is compensated for smart triggering and file reduction.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Concentration is automatic by default</remarks>
+</member><member name="P:CytoSense.Data.DataFileWrapper.analyzedVolume(CytoSense.Data.ConcentrationModeEnum)">
+	<summary>
+ Analyzed volume by #particles (parts)/ concentration (parts/uL) = Volume (uL). 
+ Is compensated for smart triggering and file reduction.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.GetSingleMachineTable(System.String,System.DateTime)">
+	<summary>
+ Retrieve a datatable with information for the specified machine on the specified date.
+ Not sure I like how this is done, but I need to invest mroe time to have a real opinion on
+ this.  So for now lets leave it like this.
+ </summary>
+	<param name="machine"></param>
+	<param name="onDate"></param>
+	<returns></returns>
+	<remarks>We need to acces the dictionary, and loop through all of htem to see which directory
+ contains the information.  So we need to lock the dictionary so nobody can mess up the dictionary while 
+ we are iterating through it.</remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.UpdateSourceFolders(System.Collections.Generic.List{System.String})">
+	<summary>
+ Used to change, or initialise, the sourcefolders. For each source folder a seperate 
+ Dirmanager will be created to manage changes in the directory and update the database.
+  
+ </summary>
+	<param name="sourceFolders"></param>
+	<remarks>Windows filesystems are case insensitive, it is possible to create a filename internally
+ that differs in case from the one windows actually sees.  For windows these are the same,
+ but for CytoClus they are not.  This results in difficult to handle issues. So we handle
+ the directory name comparison case insensitve. (NOTE: It becomes even mroeinteresing if
+ we store the data on a linux file share e.g., and there are more corner cases that make
+ it allmost impossible to do exactly what the filesystem does, but this should work for
+ allmost all.)</remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.ProcessFolderGone(CytoSense.Data.DataBase.CyzDirManager)">
+	<summary>
+ Instead of just queueing the command in the background, we also mark the dirmanager as gone,
+ so it will stop processing any further messages and abort any scan that is going on.
+ Dispose object.
+ </summary>
+	<param name="dir"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.TryUpdateUploadedFlag(System.String)">
+	<summary>
+ Bad function, use filename to see if we have a local file with the same name.
+ Not guaranteed, but should work most of hte time in real life.  We simply scan all the 
+ directories, and if we find a match, we update that files 'Uploaded'  column,
+ AND raise en updated event, if it was not allready updated.
+ We reutrn true, if we found it, false if we could not find it.
+ </summary>
+	<param name="filename"></param>
+	<returns></returns>
+	<remarks>NOTE: THe dbDIct HAS TO be locked before calling this function!</remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.ScannerThreadMain">
+	<summary>
+ THe main scanner, it waits for commands to init a dir, or to scan and then it does, :-)
+ </summary>
+	<remarks>Some change sin a directory result in a large number of notifications, e.g. dleeting a large amount of files, or
+ copying a large number. Since we do not handle individual changes, we simply rescan the entire directory it makes no
+ sense to handle multiple identical commands for the same folder in a row.  So when we Dequeue a command, we
+ peek at the next one, and if it is the same we pop it as well. (We do that in a loop of course.)</remarks>
+</member><member name="M:CytoSense.Data.DataBase.DataBaseAll.CreateDbDictionary">
+	<summary>
+ Create a dictionary of databases, one for each directory.  Because filenames in windows
+ are compared case insensitive, we need a case insensitivce dictionary.  To encapsulate this
+ I create a seperate function just to set this up.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.DataBase.DataBaseAll">
+	<summary>
+ Scan a collection of directories for .cyz files and create database with properties for these files.
+ Once loaded watchers are created for each of the directories, so we get notified of any changes.  
+ A seperate CytoDb object is created for each of these directories.  All change notificationis are
+ propagated to this object and queued.  There is a single scanner thread that is processing this
+ queue, and scanning all the changes/files/etc.
+ 
+ The databaseall(scanner) object is responsible for assigning unique IDs to files,  there Ids are only
+ valid during one session, and are just used to keep track of which file belongs to which row in the
+ datatable/grid use to display.  If the program is restarted, a new ID maybe assigned, or if a folder
+ is removed and then added, this will again result in different IDs. So DO NOT presist these ID's.
+ Bad things will happen to you if you do.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataFile.GetNewDataFileName">
+	<summary>
+ Creates a unique datafile name based on the measurement name, the cytoselector tray (if applicable) and the date time.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.MeasurementInfo.#ctor(System.DateTime,System.Single,CytoSense.Data.Data.SensorDataPointLogs,CytoSense.Concentration.HWConcentrations,CytoSense.Concentration.HWConcentrations,CytoSense.Data.Data.DetectorBackgroundNoiselevel,System.Int32,System.Int32)">
+	<summary>
+ Deprecated. Use a clone methode instead
+ </summary>
+	<param name="MeasurementStartTime"></param>
+	<param name="MeasureTime"></param>
+	<param name="sensorLogs"></param>
+	<param name="ConcentrationClass"></param>
+	<param name="preConcentrationClass"></param>
+	<param name="backgroundlevel"></param>
+	<param name="numberofParticles_allDownloaded"></param>
+	<param name="numberofParticles_smartTriggered"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.MeasurementInfo.InitOptionalFields(System.Runtime.Serialization.StreamingContext)">
+	<summary>
+ Initialize optional fields before deserializing, so we can see later if they were present in the loaded object,
+ or not.  Currently only numberOfPictures is set.  This way we can detect if it was loaded, &gt;= 0 , or not -1.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.ActualNumberofParticles">
+	<summary>
+ Replaces NumberOfParticles due to bug fix. Represents the numberofparticles actually downloaded and recognized in the computer. 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.ActualMeasureTime">
+	<summary>
+ Due to a bug in CytoUSB  in which the MeasureTime variable started just before the actual 
+ measurement (as it should) but ended just before saving to hd (and thus taking overhead 
+ such as measuring pmt background levels), a new better and improved measurement time was 
+ needed for precise concentration/volume calculations.
+ This actualMeasureTime is thus only measuring the time pulseshape data download was active.
+ It is calculated by measuring the difference between the MeasurementStartTime and the time the 
+ last block was received.
+ If however, no block info is available for whatever reason, the actualMeasureTime is reverted 
+ back to the original MeasureTime, because in the early days, no overhead at the end of a measurement
+ was present back then anyway so this should be ok.
+ 
+ With newer files a measurementlog was added, in which each task is logged with a time stamp. In this case 
+ it is a simple matter to calculate the time difference between the beginning end ending of the task "acquiring".
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.startAcquireTime">
+	<summary>
+ The moment (in seconds in the measurement) at which data acquisition starts.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.startFlushTime">
+	<summary>
+ The moment (in seconds in the measurement) at which flushing (sucking in of sample) starts.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.endAcquireTime">
+	<summary>
+ The moment (in seconds in the measurement) at which data acquisition ends.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.MeasurementInfo.NumberOfPictures">
+	<summary>
+ The number of pictures stored recorded during a measurement.  This was added so we do not need to
+ load the entire file just to get the info needed for the database view in CC4. (Note this only
+ works of the new segmented datafiles, and not for the older complete files).
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>The properties for the category, displayname, etc. Are still on the NumberOfPictures property in the
+ datawrapper.  This is for backwards compatibility.</remarks>
+</member><member name="P:CytoSense.Data.Data.DetectorBackgroundNoiselevel_V2.DetectorBackgrounds">
+	<summary>
+ Average background noise level in mV. Order is same as cytosensesettings.channels.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.DetectorBackgroundNoiselevel_V2.Buffers">
+	<summary>
+ Contains block of data which was obtained using non-trigger modus. This block is the base of the Detectorbackgrounds, and is only kept to have a means to check the backgrounds afterwards
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DetectorBackgroundNoiselevel_V2.#ctor(System.Byte[][],CytoSense.CytoSettings.CytoSenseSetting,CytoSense.MeasurementSettings.Measurement)">
+	<summary>
+ Uses an active signal generator measurement to calculate the background
+ </summary>
+	<param name="buffers"></param>
+	<param name="CytoSettings"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.DetectorBackgroundNoiselevel.DetectorBackgrounds">
+	<summary>
+ Average background noise level in mV. Order is same as cytosensesettings.channels.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.DetectorBackgroundNoiselevel.Buffer">
+	<summary>
+ Contains block of data which was obtained using non-trigger modus. This block is the base of the Detectorbackgrounds, and is only kept to have a means to check the backgrounds afterwards
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DetectorBackgroundNoiselevel.#ctor(System.Byte[],CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Provide an non-triggered block of data to have the backgroundlevels of the detectors calculated.
+ </summary>
+	<param name="buffer"></param>
+	<param name="CytoSettings"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.PMTBackgroundNoiselevel.DetectorBackgrounds">
+	<summary>
+ Average background noise level in mV. Order is same as cytosensesettings.channels.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Data.PMTBackgroundNoiselevel.Buffers">
+	<summary>
+ Contains block of data which was obtained using non-trigger modus. This block is the base of the Detectorbackgrounds, and is only kept to have a means to check the backgrounds afterwards
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.PMTBackgroundNoiselevel.#ctor(System.Byte[][],CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Provide an non-triggered block of data to have the backgroundlevels of the detectors calculated.
+ </summary>
+	<param name="buffers"></param>
+	<param name="CytoSettings"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.#ctor(CytoSense.Data.Data.DataPointList.SensorLogTypes,CytoSense.Data.Data.DataPointList)">
+	<summary>
+ Creates a new DataPointList, but retains the last value d. Makes for a smooth transaction in CytoUSB when the lists are cleared for a new measurement
+ </summary>
+	<param name="t"></param>
+	<param name="d"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.retrieveType">
+	<summary>
+ legacy function to retrieve the correct _sensorType for old files that only had a _description serialized directly
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.add(System.Double,System.Double,System.Int32)">
+	<summary>
+ Adds value, but only if checkinputOK checks out
+ </summary>
+	<param name="var"></param>
+	<param name="maxChange"></param>
+	<param name="count"></param>
+	<returns>checkinputOK()</returns>
+	<remarks>NOTE: When no data is available to calculate an average, we assume it is allright.  Else
+ we calculate the average of last values added, with a maximum of count.  Initially less
+ values will be available.</remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.add(System.Double,System.DateTime)">
+	<summary>
+ Adds value, without input check.
+ </summary>
+	<param name="var"></param>
+</member><member name="M:CytoSense.Data.Data.DataPointList.add(System.Double)">
+	<summary>
+ Adds value, without input check. 
+ </summary>
+	<param name="var"></param>
+</member><member name="M:CytoSense.Data.Data.DataPointList.getLastTime(System.Int32)">
+	<summary>
+ Get last n entries of the time information
+ </summary>
+	<param name="n"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.getMean(System.DateTime,System.TimeSpan)">
+	<summary>
+ Calculates mean of the data recorded during the specified timeinterval
+ </summary>
+	<param name="t"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.getMeanTime(System.Int32)">
+	<summary>
+ Get mean over last n entries
+ </summary>
+	<param name="n"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.getMeanUncheckValues(System.Int32)">
+	<summary>
+ Calculates mean of the data recorded from the last x samples
+ </summary>
+	<param name="x"></param>
+	<returns></returns>
+	<remarks>It uses Min(x, num avail samples-1), so it will not crash.  If numsamples is 0,
+ then we cannot calculate any value, so this results in an exception!.
+ NOTE: THe function assumes that the NEW value has allready been added to the 
+ uncheckedValues list.  So it will ignore the last value when calculating 
+ the average.
+ </remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.checkInputOK(System.Double,System.Int32,System.Double)">
+	<summary>
+ Checks if input value has smaller change then maxChange during count last samples
+ </summary>
+	<param name="maxChange"></param>
+	<param name="count"></param>
+	<param name="input"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Data.DataPointList.getTable">
+	<summary>
+ Returns a formatted table of datapoints
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Data">
+	<summary>
+ The following classes cannot be moved due to serialisation limitations
+ </summary>
+	<remarks>Do not add classes to this module! See comment below</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData.Data_Deconv">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Not cached because non prooven technology... (and therefor not used)</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData.Data_mV_unsmoothed">
+	<summary>
+ Contains unsmoothed, delogged data particle data in mV
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>This data is not cached as it saves a member field and is not often used.</remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.SmoothParticle(System.Int32[])">
+	<summary>
+ This smoothing is done to filter out noise generated by the AD-converter. It is a lowpass that gradually drops off between 1MHz and 2Mhz. 
+ Since there is a 1MHz lowpass in place before the AD-converter, only noise generated after this filter is thrown out, not valuable data.
+ The beginning and end data point are set to 0, which is a little more doubtful but looks better in the graph plot. Even if we wanted to, 
+ removal or change of the smoothing must be done with great caution and restraint as it will change the output of everything. (which causes
+ problems for easyclus users and people that exported their data)
+ </summary>
+	<param name="d"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.SetParametersFast">
+	<summary>
+ Fast implementation of the getParameter function, all in one shot.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.SetParametersFast(System.Boolean[])">
+	<summary>
+ Fast implementation of the getParameter function, select which parameters in the mask. Same order as ParameterSelector
+ </summary>
+	<param name="mask"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.GetParameter(CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector,System.Single[],System.Double[])">
+	<summary>
+ Returns a selected parameter based on the dataof one channel contained in ChannelData()
+ </summary>
+	<param name="par_sel"></param>
+	<param name="Data"></param>
+	<param name="parameters"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.CalculateR1Cos">
+	<summary>
+ Test parameter, to see if we can filter out some small fluorescent stuff, by trying to remove noise, by assuming
+ all small particles look like a gaussian/ single cosine wave, and do a partial FFT to extract only that
+ frequence. And som some interesting calculation on them.
+ Can probably be optimized a bit.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.getmVLookup_RuudElectronics">
+	<summary>
+ Lookup table and delog crorrection factor need for hte old ruud electronics.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData.getmVLookup_FjElectronics">
+	<summary>
+ Lookup table and delog crorrection factor needed for new fransjan electronics.
+ Not rpetty this way, we keep everything the same.  THat sucks, but for now it is the easiest solution I think.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware.#ctor(CytoSense.CytoSettings.CytoSenseSetting,System.Single)">
+	<summary>
+ Basic constructor. 
+ </summary>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware.#ctor(System.Byte[],CytoSense.CytoSettings.channel,CytoSense.CytoSettings.CytoSenseSetting,System.Single)">
+	<summary>
+ This constructor enables you to only calculate the mv_lookup table once, instead of every time you need the delogged data for another particle
+ </summary>
+	<param name="data"></param>
+	<param name="info"></param>
+	<param name="cytoSettings">Needed for some constants to calculate parameters</param>
+	<remarks>Parameter properties are still only computed on demand</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware.Data_Raw">
+	<summary>
+ Original byte log data. Fast, bust should use smoothed mv data instead.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware.Data">
+	<summary>
+ Contains smoothed, delogged data particle data in mV
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_Hardware.Data_mV_unsmoothed">
+	<summary>
+ Contains unsmoothed, delogged data particle data in mV. 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>The unsmoothed data is always calculated, instead of 
+ cached like the normal Data. This saves a member field (which is unused 
+ if normal Data is used) but makes its usage slower. In practise unsmoothed should 
+ not be used often.</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_FWSCurvature.Data_mV_unsmoothed">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Not cached because it should not be used often</remarks>
+</member><member name="M:CytoSense.Data.ParticleHandling.Channel.ChannelData_FWSCurvature.calcData_andSetCurvData(System.Boolean)">
+	<summary>
+ Calculates the combined FWS channel data. The substracted data is outputted through this function, 
+ so smoothing can be easily turned on/off. The curvature data is set always, as it is never smoothed.
+ </summary>
+	<param name="smoothing"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_ratioChannel.Data_mV_unsmoothed">
+	<summary>
+	</summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Not cached because it should not be used often.</remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_DualFocus.Parameter(CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector)">
+	<summary>
+ Returns parameters of the whole (unsplit) channel. Use an extra left/right-argument for splitted parameters.
+ </summary>
+	<param name="k"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_DualFocus.Data_mV_unsmoothed">
+	<summary>
+ Returns the unsmoothed data of the whole referenced FLRED-channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.Channel.ChannelData_DualFocus.Information">
+	<summary>
+ Information of the original FLRED-channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.ParticleHandling.Channel.ChannelData_HFSubtractChannel">
+	<summary>
+ Virtual channel for the SSL system (software subtract laser system). This channel contains the signal of the HF + LF laser. 
+ In order to get only the HF laser signal, the LF signal is subtracted
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.ParticleHandling.Channel.ChannelData_LFFilteredChannel">
+	<summary>
+ Virtual channel for the SSL system (software subtract laser system). This channel contains the already filtered LF laser signal. 
+ In principle no extra calculations are needed to get the LF signal, but mainly for clarity and in the future handling of extreme (clipping situations) still a special 
+ virtual channel is available
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.sensorChecks.sensordataOkay(CytoSense.Data.Data.MeasurementInfo,CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Checks if sensordata (such as pressure, temp and backgroundlevels) are within allowable range.
+ </summary>
+	<param name="info"></param>
+	<param name="instrument">Usually you'd want to use the settings from the dll, not from the file (because those are up to date). 
+ File made with old versions of the database will have the checks defaulted to 0.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.sensorChecks.SamplePumpCalibrationOK(CytoSense.MeasurementSettings.Measurement)">
+	<summary>
+ Checks if the sample pump is calibrated OK. Returns "" if OK, message if not.
+ </summary>
+	<param name="Measurement"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PICSettings.Powerboard">
+	<summary>
+ Denotes whether the pic is connected to the I2C powerboard designed by koen
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.Machines.getCytoSettings(System.String)">
+	<summary>
+ Gets the correct cytosettings for a machine
+ </summary>
+	<param name="deviceName">The serial number (CS-####-##) or hardware (FTDI) serial, NOT the Cytosettings.name property</param>
+</member><member name="M:CytoSense.CytoSettings.Machines.FJTest1">
+	<summary>
+ Test print for new electronics
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.Machines.FJTest2">
+	<summary>
+ Test print for new electronics
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.Machines.FJTest3">
+	<summary>
+ Test print for new electronics
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.digitalOutput.Configure(System.String,System.Boolean,CytoSense.CytoSettings.digitalOutput.DI_Type)">
+	<summary>
+ Update the current values, it updates all but the location. I have no idea what the location is used for at all,
+ so for now I just leave it in as it is.  THis functions makes the machines.vb file, several lines shorter. And
+ in theory easier to read.
+ </summary>
+	<param name="name"></param>
+	<param name="visible"></param>
+	<param name="tp"></param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.ExternalFilterState">
+	<summary>
+ Possible states for the external filters used in the BST system
+ </summary>
+	<remarks>NOTE: Maximum of 16 states (Invalid + 15 others, as they will be stored in 4 bits in the EEPROM)</remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.SampleFrequency">
+	<summary>
+ In MHz
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.Sample_to_um_ConversionFactor">
+	<summary>
+ Denotes the distance a particle travels through the laser in one sample
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="F:CytoSense.CytoSettings.CytoSenseSetting._BSTSystem">
+	<summary>
+ Old BST settings, only present for backwards compatibility with older experiments.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CytoSense.CytoSettings.CytoSenseSetting.Corespeed">
+	<summary>
+ 'use sampleCorespeed property instead!
+ </summary>
+	<remarks>staat nu als *1000</remarks>
+</member><member name="F:CytoSense.CytoSettings.CytoSenseSetting.BeamWidth">
+	<summary>
+Use LaserBeamWidth property instead!
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.BeadsModule">
+	<summary>
+ True when an automatic beads module is present in the system, false if not.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.BiocideExtimatedConcentration">
+	<summary>
+ Concentration at the START of the measurement
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>The stored concentration is the one estimated after the last inject, so we need to the measurement 
+ using the stored concentration, sheath volume and pumped volume.!
+ NOTE: Current calcualtion works per ml, so it ignores changes smaller then a milliliter, and updates only
+ after the next ml has been pumped.</remarks>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.getChannelIndexFromSync(System.Byte)">
+	<summary>
+ Returns the channel id given a "sync seporator" value. Does not work for the trigger channel and the dsp channel!
+ </summary>
+	<param name="sync"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.getChannelIndex(System.String)">
+	<summary>
+ Returns the index in the (hardware) channellist. Note that this is incompatible with the (volatile) ChannelList property!
+ </summary>
+	<remarks>
+ The use of this method is mildly frowned upon
+ </remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.hasSeperateHighLowPMTs">
+	<summary>
+ Legacy function to find out if the instrument has seperate high low pmt's. Since previously it was not save explicitely to the cytosettings, sometime it has to be determined through other means...
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.setChannelVisualisationMode(CytoSense.CytoSettings.ChannelAccessMode)">
+	<summary>
+ This function can be used to switch to a different mode in the way of visualizing channels. 
+ If for instance the seperate FWS channels need to be visible, set the mode to debuggingoptical
+ </summary>
+	<param name="c"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.ChannelList">
+	<summary>
+ Retrieves a list of available channels, e.g. for visualisation purposes. This list is used by the particle class in the datafilewrapper.
+ </summary>
+	<returns></returns>
+	<remarks>Use setChannelVisualisationMode to set different modes of visualisation</remarks>
+</member><member name="P:CytoSense.CytoSettings.CytoSenseSetting.DualFocussedChannels">
+	<summary>
+ Returns all hardware channels that have a dual focus. Due to a legacy situation this function is needed and obligatory to use when looking for these types of channels
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.channelIsVisibleButNotSpecial(CytoSense.CytoSettings.channel)">
+	<summary>
+ Checks if a hardware channel is to be visualised directly, or needs to be either embedded in an virtual channel or excluded completely
+ </summary>
+	<param name="thisChan"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.getChannellistItemByName(System.String@)">
+	<summary>
+ Gets the channellistitem with the corresponding name. May return Nothing if it is not found.
+ </summary>
+</member><member name="M:CytoSense.CytoSettings.CytoSenseSetting.getChannellistItemByType(CytoSense.CytoSettings.ChannelTypesEnum)">
+	<summary>
+ Returns a channellistitem by type. May return nothing if the channel is not present or if the visualisationmode is not suitable.
+ Does not discriminate between channels in the case of separate high-sensitivity and low-sensitivity channels.
+ </summary>
+</member><member name="T:CytoSense.CytoSettings.CytoSenseSetting">
+	<summary>
+ This class encompasses all settings a machine can have
+ </summary>
+	<remarks>The settings of a machine are based around a set of defaults, so a normal machine does have the options for e.g. a sub, although they are meaningless </remarks>
+</member><member name="T:CytoSense.CytoSettings.BiocideModuleOptionsT">
+	<summary>
+ The structure below stores all the configuration for the biocide module, this way it will beincluded in the
+ datafiles.  SO we can allways check the datafiles to see what was configured.
+ It will contain user settings, but also system configuration info that is only usefull for us. (e.g. I2C address).
+ THere are also some support functions here that should probably be moved
+ somewhere else, e.g. the BiocideModule structure from PIC Control.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.BeadsModuleOptionsT">
+	<summary>
+ All options for the beads module,
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.ExternalFilterModuleOptionsT">
+	<summary>
+ All options for the external filter module
+ </summary>
+	<remarks>NOTE: I am not sure we really want them all in the experiment, on the other hand,
+ a few extra bytes will not hurt, and who knows it may save us sometime.
+ NOTE: I put the Present flag in here as well, instead of using the Is Null test,
+ that allows us to reduce the interface for the modulecontrol class to just
+ this object instead of the whole settings object.
+ 'Perhaps we can create a baseclass with the other options classes, that
+ way we can share some code.
+ </remarks>
+</member><member name="M:CytoSense.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Boolean)">
+	<summary>
+ Constructor for hardwired highsensitivity channel (Pico Plankton  A or C option)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="ChannelColor"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="ChannelIsHighSensitivity"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Int32,System.Boolean)">
+	<summary>
+ Constructor for switchable selectable high low setting. (Pico Plankton  B option)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="ChannellowCheckID"></param>
+	<param name="ChannelHasLowCheck"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Byte,System.Byte,System.Byte)">
+	<summary>
+ Constructor for 256 bit continous sensitivity setting (new standard, no Pico Plankton option anymore)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="channelPMT_id">As printed on circuit board! Actual index address is -1, this is handled internally</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Byte,System.Byte,System.Byte,System.Boolean)">
+	<summary>
+ Constructor for 256 bit continous sensitivity setting, with legacy Pico Plankton C option
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="channelPMT_id">As printed on circuit board! Actual index address is -1, this is handled internally</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.channel.#ctor(System.String,System.Drawing.Color)">
+	<summary>
+ Constructor for Virtualchannel basis
+ </summary>
+</member><member name="T:CytoSense.CytoSettings.channel.LaserColorEnum">
+	<summary>
+ Describes laser that are in the machine (and excite this channel).
+ </summary>
+	<remarks>The descriptionAtrribute is the presentable name of the laser </remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.PMTLevel_id">
+	<summary>
+ Returns index of pmt on the DAC5578. Which is 0 based
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.PMTLevel_min">
+	<summary>
+ Minimum level of pmt on the DAC5578.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.PMTLevel_max">
+	<summary>
+ Maximum level of pmt on the DAC5578.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.Channel_Type">
+	<summary>
+ Defines the type of this channel, independent of sensitivity or laser excitation.
+ </summary>
+</member><member name="P:CytoSense.CytoSettings.channel.Description">
+	<summary>
+ Defines the name string for this channel. 
+ Default for virtual channels, needs to be changed in overidden class. 
+ For hardwarechannels the name needs to be changed in the cytosettings machine configuration
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.IsFilteredLFChannel">
+	<summary>
+ Flags a filtered channel in the Software Substract Laser (SSL) system
+ If this flag is true, the channel only needs information from the LF channel, as the HF signal was filtered out by the electronics. 
+ Still, the linked HF channel can be found from the HFchannelIndex property in this class
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.IsHFplusLFchannel">
+	<summary>
+ Flags a summed channel in the Software Substract Laser (SSL) system
+ If this flag is true, then the channel was mixed with both the filtered LF and the HF pmt signal, 
+ which still need to be subtracted in order to get the HF signal. The LF channel can be found by using the LFchannelIndex property in this class
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.LF_HardwareChannelIndex">
+	<summary>
+ Contains the index in the hw channels of a linked LF channel, in case of a 2e laser softwaresubtract-laser-system (SSL system) HF-channel. 
+ The channel pointed by this index needs to be subtracted from this channel.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.channel.HF_HardwareChannelIndex">
+	<summary>
+ Contains the index in the hw channels of a linked HF channel, in case of a 2e laser softwaresubtract-laser-system (SSL system) LF-channel. 
+ The channel pointed by this index is already filtered out by the electronics, so this 
+ link may not be used except for extreme situations (clipping etc)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.channel">
+	<summary>
+ Contains all meta-information about a channel, should therefore have been called ChannelInfo, but can't be changed due to existing serialized datafiles
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.VirtualChannelInfo">
+	<summary>
+ Provides channel meta-information for a virtual channel.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualHFSummedChannelInfo.HF_HardwareChannelIndex">
+	<summary>
+ Contains the index of the HF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualHFSummedChannelInfo.LF_HardwareChannelIndex">
+	<summary>
+ Contains the index of the LF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualHFSummedChannelInfo.HFChannelInfo">
+	<summary>
+ Contains the information of the HF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualHFSummedChannelInfo.LFChannelInfo">
+	<summary>
+ Contains the information of the LF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.VirtualHFSummedChannelInfo">
+	<summary>
+ Used in case of a SSL system.
+ Contains the meta information about a summed HF/LF channel. In order to get the intended HF channel, the LF channel needs to be subtracted from the raw HF channel.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualLFFilteredChannelInfo.HF_HardwareChannelIndex">
+	<summary>
+ Contains the index of the HF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualLFFilteredChannelInfo.LF_HardwareChannelIndex">
+	<summary>
+ Contains the index of the LF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualLFFilteredChannelInfo.HFChannelInfo">
+	<summary>
+ Contains the information of the HF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.VirtualLFFilteredChannelInfo.LFChannelInfo">
+	<summary>
+ Contains the information of the LF channel in the hardware channel list
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.VirtualLFFilteredChannelInfo">
+	<summary>
+ Used in case of a SSL system.
+ Contains the meta information about a de-summed HF/LF channel. 
+ Although it is virtual it contains references to the actual hardware channel, since the signals on those channels are actually identical.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.VirtualDualFocusChannelInfo">
+	<summary>
+ Contains meta-info about the split up channels of a dualfocus laser machine
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.ChannelWrapper.ID">
+	<summary>
+ Contains the ID of this channel in the cytosettings.channellist
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.ChannelWrapper.#ctor(CytoSense.CytoSettings.channel,System.Int32,CytoSense.CytoSettings.LineTypeEnum)">
+	<summary>
+ Constructor for virtual channel with no direct link to a hardware channel
+ </summary>
+	<param name="channel"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.CytoSettings.ChannelWrapper.#ctor(System.Int32,System.Int32,CytoSense.CytoSettings.channel,CytoSense.CytoSettings.LineTypeEnum)">
+	<summary>
+ Constructor for any hardware channel
+ </summary>
+	<param name="hw_channel_id"></param>
+	<param name="channel"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.ChannelWrapper.VirtualChannelType">
+	<summary>
+ The virtual channel type of this channel, only if it is virtual. Otherwise returns Nothing.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.ChannelWrapper.IsHWChannel">
+	<summary>
+ Flags this as a hardware channel (generated by instrument) or not
+ </summary>
+</member><member name="T:CytoSense.CytoSettings.ChannelWrapper">
+	<summary>
+ Wrapper class to provide more structured access to the different channel types provided by the particle class
+ </summary>
+	<remarks>Needed because _hw_channel_id is not serialized with normal channel. Also this class will not be serialized and thus can be changed without danger </remarks>
+</member><member name="M:CytoSense.Concentration.HWConcentrations.#ctor">
+	<summary>
+ CytoUSB normal usage.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Concentration.HWConcentrations.#ctor(System.Double)">
+	<summary>
+ Used to directly input a concentration. Not recommended. Class will go into fallback mode, and you need to use getFallbackConcentration istead of getConcentrationFromPoint array.
+ </summary>
+	<param name="concentration"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Concentration.HWConcentrations.getCounterPoints(CytoSense.MeasurementSettings.Measurement,System.Boolean)">
+	<summary>
+ Only use if when using (datafiles with) CytoSense dll release after august 2011. Else use getCounterPoints(cytosettings , measurement , UseInterpolationRecovering )
+ </summary>
+	<param name="measurement"></param>
+	<param name="UseInterpolationRecovering"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.DCSamplePump.#ctor(System.Double,System.DateTime,System.Double)">
+	<summary>
+ Estimate calibration. Only use if no real calibration is available.
+ </summary>
+	<param name="Volume1Round"></param>
+	<param name="d"></param>
+	<param name="constant"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.DCSamplePump.#ctor(System.Int32,System.Double,System.DateTime,CytoSense.Calibration.SamplePump.DCSamplePumpHallMeasurements[])">
+	<summary>
+ Make new DC samplepump calibration.
+ </summary>
+	<param name="numberofRounds">Number of cycles that was used to do calibration</param>
+	<param name="measuredVolume">Measured volume taking in in numberofRounds, in ul!</param>
+	<param name="d"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.DCSamplePump.getExpectedRoundTime(System.Byte)">
+	<summary>
+ calculates the roundtrip time of the sample pump with the provided speed in miliseconds
+ </summary>
+	<param name="speed"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.DCSamplePump.getSpeedLinearity">
+	<summary>
+ Calculate difference between expected pumped volume based on the fixed max speed weighing scale test versus the time calibration:
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Calibration.SamplePump.DCSamplePump">
+	<summary>
+ Contains the dc sample pump calibration. Can only be used when a hall sensor and a dc sample pump is available
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.#ctor(System.Double)">
+	<summary>
+ Backwards compatabilty to not yet calibrated samplepumps
+ </summary>
+	<param name="SamplePumpConstant"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.getOriginalCalibrationPoints(System.Int16)">
+	<summary>
+ To plot dots of the calibration points as determined during the wizzard. Only to be used after calibration, in support graphs
+ </summary>
+	<param name="speedIndex"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.NumberOfSpeeds">
+	<summary>
+ Specifies the number of different speeds on which the sample pump is calibrated / calibrating
+ </summary>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.doCalculations">
+	<summary>
+ ReCalculates a best fit on available calibration points. Needs to be done after calibration cycle was finished
+ </summary>
+	<remarks>Only used during calibration</remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.getRatio(System.Byte)">
+	<summary>
+ Will compare the speed against the ratio table, specifying the best fit on the calibration data
+ </summary>
+	<param name="speed">byte value of the sample pump speed</param>
+	<returns>Ratio belonging to speed</returns>
+	<remarks>Should only be used when calibration was completed succesfully</remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.getFlowSpeed(System.Byte)">
+	<summary>
+ Will calculate accurate flow rate in uL/s from calibration ratio at specified speed
+ </summary>
+	<param name="speed">Direct byte level speed</param>
+	<returns></returns>
+	<remarks>Replaces getFlowRate?</remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.getRatioWhileCalibrating">
+	<summary>
+ tries to determine best ratio that can be calculated during calibration with available calbration points, on the currently calibrating speed
+ </summary>
+	<returns></returns>
+	<remarks>Only used during calibration</remarks>
+</member><member name="M:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData.getFlowRate(System.Int16,System.Int16)">
+	<summary>
+ Returns flowrate of one calibration point, in ml/s
+ </summary>
+	<remarks>Only used during calibration</remarks>
+</member><member name="T:CytoSense.Calibration.SamplePump.SamplePumpCalibrationData">
+	<summary>
+ Contains the old stepper motor sample pump calibration. Cannot be used with a DC sample pump. (even if it has no hall sensor)
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Calibration.IMC">
+	<summary>
+ Inter machine calibration
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.TCPMaster.send(System.Object)">
+	<summary>
+ Sends a serializable object over a tcp-ip based networkstream
+ </summary>
+	<param name="data">Serializable object</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.SerializerServer.waitForInitalisation(System.Int32)">
+	<summary>
+ Provides a synchronisation method to signal if port handshaking and iniatialisaion was handled succesfully
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.ClientTask_receive.#ctor(System.String,CytoSense.Remote.RemoteSettings)">
+	<summary>
+ Used to download a file from the remote server, and save it to the default download location
+ </summary>
+	<param name="file"></param>
+	<param name="remoteSettings"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.ClientTask_receive.#ctor(System.String,System.String,CytoSense.Remote.RemoteSettings)">
+	<summary>
+ Used to download a file from the remote server, and save it a custom file name
+ </summary>
+	<param name="file"></param>
+	<param name="remoteSettings"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Remote.RemoteSettings.BandWidth">
+	<summary> 
+Zorg dat de gebruikte bandbreedte beneden dit pijl blijft
+ </summary>
+	<value> In kilobyte/seconde</value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Remote.RemoteSettings.SerNr">
+	<summary>
+ The SerNr of the instrument (CS-20xx), used as identifier to which files access is provided remotely
+ Deprecated, should be changed for username + password
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.MultiThreadedServer.checkupdateservers">
+	<summary>
+ Check if which servers are still active and upsate the server list accordingly
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Remote.MultiThreadedServer">
+	<summary>
+ The multithreaded server maes sure multiple clients can connect to the server at the samen time. It
+ does so by receiving a port request from the client, searches for a free port, and sends that port 
+ number back to the client while at the same time opening a new fileserver at that port.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.RFile.File.#ctor(System.String,System.String,System.Object,System.String)">
+	<summary>
+ Initiates this class, but does not put anything in data
+ </summary>
+	<param name="Filename"></param>
+	<param name="relativeDir"></param>
+	<param name="noReading">Can be anything, just to recognize differtent constructor</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.RFile.RequestFileList.#ctor(System.String,System.String)">
+	<summary>
+ A to be send to the server request for it's current filelist
+ </summary>
+	<param name="name">The name of this specific filelist. Can be the same as main dir name</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.RFile.RequestSplittedFile.#ctor(System.String,System.String)">
+	<summary>
+	</summary>
+	<param name="name"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.RFile.DeleteFile.#ctor(System.String,System.String)">
+	<summary>
+	</summary>
+	<param name="name"></param>
+	<remarks></remarks>
+</member><member name="E:CytoSense.Remote.FileClient.ProgressChanged">
+	<summary>
+ Depreciated. Use Tasks(x).progress
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.FileClient.addtask(System.Collections.Generic.List{CytoSense.Remote.ClientTask})">
+	<summary>
+ Adds a client task to the queue
+ </summary>
+	<param name="task"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Remote.FileClient.getPort">
+	<summary>
+ Requests a port at the multithreaded server if none was allocated yet
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources._033">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources._039">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources._125">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Actions_dialog_ok_apply_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Actions_dialog_ok_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Actions_irc_join_channel_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.add">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.allergy_vials_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.App_Quick_restart_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Apps_background_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Asym">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Avg">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.battery_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.battery_power_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Button_Add_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Button_Download_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Button_Upload_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Button_Warning_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Cells">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.CG">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Channels">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Close">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.control_panel_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.cytosensehull">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.CytoUSB_connection">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.CytoUSB_no_connection">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Default_Icon_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.delete_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.DeleteHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Devices_media_flash_smart_media_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Devices_media_optical_data_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Dock">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Downloads_1_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Downloads_2_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.dummy">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.dummy1">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.EditTableHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Empty_Bucket_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.FillF">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.flask_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Floppy_Drive_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.gear">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.geolocation">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Hardware_Chip_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Help_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.icon_pressure">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.icon_pressure_abs">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.icon_pressure_diff">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.icon_temperature">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Inertia">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Integral">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.k_timer_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Len1">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.LH2_Restart_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.lightning_add_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Maximize">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Maximize2">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Maximum">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.minus_white">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.NewReportHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Ok_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.ok_icon_contrast">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Open_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.openHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Photos_icon__1_">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.plus_white">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Red_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.SampleLength">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.SaveAllHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.saveHS">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Settings_Clock_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Status_battery_charging_060_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Status_battery_charging_060_icon1">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Stop_Normal_Red_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.submarine_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Symbols_Warning_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.table">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.table_insert_row">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.temperature_1_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.tool_box_preferences_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Trash_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Undock">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.usb">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.USB_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.USB_icon_disconnected">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.weight_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Windows_Turn_Off_icon__2_">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:CytoSense.My.Resources.Resources.Zoom_icon">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="T:CytoSense.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.#ctor(System.String)">
+	<summary>
+ Deserializes a CYZ file and makes the object accessible to Matlab.
+ </summary>
+	<param name="filename">The file to deserialize</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.Clear">
+	<summary>
+ Should aid in releasing all resources occupied by this class
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetAllParametersForChannel(System.Int32,System.Boolean,System.Boolean,System.Boolean[])">
+	<summary>
+ Calculates all available parameters except TOF for the selected channel at once.
+ </summary>
+	<param name="channelIndex">The index to the selected channel in the ChannelList</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<param name="normalize">Normalizes each parameter to 1, using the current particles array as a reference </param>
+	<param name="convertToLog">"Output 10log of parameters that are usually shown on logaritmic scale in CC. (all except Fill Factor and #cells)</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetAllParametersForChannel(System.Int32,System.Boolean,System.Boolean[])">
+	<summary>
+ Instructs the dll to calculate all availble parameters except TOF that are true for this channel for all particles in the datafile at once.
+ </summary>
+	<param name="channelIndex">The index to the selected channel in the ChannelList</param>
+	<param name="convertToLog">The index to the selected channel</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetAllParametersForChannel(System.Int32,System.Boolean[])">
+	<summary>
+ Instructs the dll to calculate all parameters that are true for this channel for all particles in the datafile. Results are not converted to log scale.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.getAllParametersForChannel(System.Int32)">
+	<summary>
+ Instructs the dll to calculate all parameters for this channel for all particles in the datafile. Results are not converted to log scale.
+ </summary>
+	<param name="channelIndex">The index to the selected channel in the ChannelList</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetAllTOFs">
+	<summary>
+ Calculates only the TOF parameter for all particles
+ </summary>
+	<returns>A vector of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetFWS_LR_Totals">
+	<summary>
+ Calculates only the curvature FWS L and R total parameters on special request for Thomas. 
+ </summary>
+	<returns>A vector of singles</returns>
+	<remarks>To be replaced by checkAllignment function in the future.</remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.saveClustersInDataFile2(System.Collections.Generic.List{System.Int32},System.String)">
+	<summary>
+ Saves this datafile to cytosense CYZ file with the clusters
+ </summary>
+	<param name="labels"></param>
+	<param name="filename"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.GetParameterList">
+	<summary>
+ Returns a list of the available parameters.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.getRGBArrayFromImage(System.Drawing.Image)">
+	<summary>
+ Creates an a rgb array of bytes from an image
+ </summary>
+	<returns>[h x w x rgb] byte array of an image</returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+	<summary>
+ Must be called from the constructor to resolve all external references!
+ </summary>
+	<param name="sender"></param>
+	<param name="args"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.getparticleMatrix(System.Int32,System.Int32,System.Boolean[])">
+	<summary>
+ This function will construct a matrix which contains [channeldata; fft; cytoclus parameters]. 
+ The channeldata from the different channels is first interpolated to 
+ specific length and then put behind eachother to create a single large vector. 
+ The max amplitude of each channel's channeldata is normalized to 1. 
+ Also the cytoclus parameters are normalized, but in this case this is
+ done based on the variance found for each parameter in the current particle set.
+ </summary>
+	<param name="interpolationlength"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Interfaces.MatlabInterface.smartTriggerParticles(System.Int32,System.Int32,System.Double,System.Double)">
+	<summary>
+ Reduces the particles in this class according to smarttrigger settings. The channel if corresponds to the hardware channel listing (cytosettings.channels)
+ </summary>
+	<param name="channel"></param>
+	<param name="parameter"></param>
+	<param name="min"></param>
+	<param name="max"></param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Interfaces.MatlabInterface">
+	<summary>
+ Provides Matlab access to CYZ file objects via the .Net interface.
+ </summary>
+	<remarks>(Matlab does not support nested classes)</remarks>
+</member><member name="T:CytoSense.DSP.IIFImage">
+	<summary>
+ Depreciated for use in CytoUSB and soon new datafiles. Only cannot be removed due to old previously serialized datafiles. (Legacy)
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.DSP.DSPParticles.#ctor(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ This class will contain only particles from which the IIF DSP has determined that they fall within
+ the selectionset as specified by the IIF parameters
+ </summary>
+	<param name="CytoSettings">Each dspparticle needs some information about the machine which was used. For instance; numberOfChannels</param>
+</member><member name="P:CytoSense.DSP.DSPParticles.unmatchedImages">
+	<summary>
+ The images which could not be matched to a splitted particle. Does not always return a value!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.DSP.DSPParticles.matchedImages">
+	<summary>
+ The images which could be matched to a splitted particle. Does not always return a value!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.DSP.DSPParticles.addParticle(System.Int32,System.Int32,System.Int32,System.Byte[],System.Byte[],System.Double[])">
+	<summary>
+ Will add a particle to _dspparticles.
+ </summary>
+	<param name="PartID">Needed to filter out the right particle out of BufferT, calculated by DSP</param>
+	<param name="ImageID">Needed to retreive respective image from _fotoFilenameCollection, calculated by DSP</param>
+	<param name="BufferT">A complete block of data, which contains the dspparticle at place PartID</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.DSP.DSPParticles.addParticle(System.Int32,System.Int32,System.Byte[],System.Double[])">
+	<summary>
+ Will add a particle to _dspparticles.
+ </summary>
+	<remarks>Implementation for manual copying of images by CytoClus</remarks>
+</member><member name="P:CytoSense.DSP.DSPParticles.particles(System.Int32,System.Boolean)">
+	<summary>
+ Provides acces to matched particle, including an Image if found
+ </summary>
+	<param name="index">Index of particle to be retrieved</param>
+	<param name="onlyWithImageSucces">Filters out particles without an image matched to it. Param index is also influenced by this. Maximum index is getNumberOfSucceses</param>
+	<returns></returns>
+	<remarks>Pay attention to use getNumberOfSucceses as length instead of this property.length, when onlyWithImage = true</remarks>
+</member><member name="P:CytoSense.DSP.DSPParticles.Length">
+	<summary>Number of particles that were (data)matched </summary>
+</member><member name="M:CytoSense.DSP.DSPParticles.getNumberOfSucceses">
+	<summary>
+ Calculates number of ImageMatched particles. Therefor, datamatch particles without an image matched are not counted.
+ </summary>
+</member><member name="M:CytoSense.DSP.DSPParticles.RemoveImages_PlaceStreams">
+	<summary>
+ Solves memory issues with Image
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.DSP.DSPParticle.Match(CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ THis function will test of a particle has the same signature as a dspparticle, and save the particle inside if so
+ </summary>
+	<param name="p"></param>
+	<returns>True if p is matched, false if not or the particle id of p was recognized to be already tested</returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.ChannelData">
+	<summary>The unseperated sample data of this particle</summary>
+	<remarks> -ChannelData is ontdaan van syncscheiders
+-het eerste sample in _channelData is van kanaal Trigger1, daarna het 130, 132 enz kanaal
+-het laatste sample is de sample vóór het Trigger1 kanaal  
+ </remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.Image">
+	<summary>
+ The image matched by this particle
+ </summary>
+	<remarks>May be empty if corresponding image was not found, because of camera problem!
+ In case of sorter, also empty </remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.ImageStream">
+	<summary>
+ The image matched by this particle
+ </summary>
+	<remarks>May be empty if corresponding image was not found, because of camera problem!
+ In case of sorter, also empty </remarks>
+</member><member name="M:CytoSense.DSP.DSPParticle.RemoveImages_PlaceStreams">
+	<summary>
+ Solves memory issues with Image
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.ProcessedImage">
+	<summary>
+ Returns a cropped version of the particle image if there is one, or nothing otherwise.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.ProcessedImageStream">
+	<summary>
+ Returns a cropped version of the particle image if there is one, or nothing otherwise.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.Succes">
+	<summary>
+ Flag whether the matching of data and dsp output is OK, and a picture was matched
+ </summary>
+	<remarks>-Only datamatched particles are saved, but particles without a ImageMatch are also saved
+ -This does now  say  if the corresponding image data was found...</remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.DataMatchSucces">
+	<summary>
+ Only used in CytoUSB to check whether the matching of data from the dsp with the buffert was a succes
+ </summary>
+	<returns></returns>
+	<remarks>Does not saty anything about matched pictures</remarks>
+</member><member name="P:CytoSense.DSP.DSPParticle.ImageID">
+	<summary>
+ Contains the framenumber, as specified by DSP. The corresponding framenumber from the pixelink camera needs to be found. 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.frmGPSmap.getDistance">
+	<summary>
+ Supposedly returns in kms
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlParameterChannelSelectorTable.#ctor">
+	<summary>
+ For designer purposes. Use initialize() to get it working.
+ </summary>
+</member><member name="M:CytoSense.GUI.ctrlParameterChannelSelectorTable.#ctor(CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Direct construction into a working form.
+ </summary>
+</member><member name="M:CytoSense.GUI.ctrlDatabaseView.#ctor">
+	<summary>
+ Don't forget to initialize after this one
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlDatabaseView.SelectedFiles">
+	<summary>
+ Returns a list of the full paths of all the selected files in the database view.
+ Since we have multiple select this can (and often will) be multiple files.  
+ Or it could be none in theory.
+ </summary>
+	<returns>The full pathnames of all selected files.</returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlDatabaseView.cytoDatagrid_RowPrePaint(System.Object,System.Windows.Forms.DataGridViewRowPrePaintEventArgs)">
+	<summary>
+ Set hte row background color based on data in the cell, for now, set it to red, based on the
+ content of the error column.
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlDatabaseView.EntryAddedHandler(System.Int32,System.Data.DataRow)">
+	<summary>
+ Manipulating the filedata table should all be done in GUI thread because events propagate
+ to the GUI.
+ </summary>
+	<param name="id"></param>
+	<param name="row"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.GUI.ctrlDatabaseView.RemoteSerNr">
+	<summary>
+ Determines access to the remote "folder", for now the instrument serial number is used to set access to only files of that instrument
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.GUI.ctrlDatabaseView.RemoteMode">
+	<summary>
+ Sets the client mode of the connection to the CytoServer to either disabled, the CytoServer or a customer server
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.GUI.ctrlDatabaseView.RemoteServerAddress">
+	<summary>
+ Contains the used remote server address
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlDatabaseView.stopUpdating">
+	<summary>
+ This should actually de dispose, but I dont get how that works in a ui control
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.GUI.ctrlDatabaseView">
+	<summary>
+ The database view contains a datagrid used to display data ( :-) ), and a datatable to store the
+ actual data in.  See MSDN, this is recommmended by Microsoft if the amount of data is not very small.
+ I removed all the threading involved, the database view does not have a seperate thread.  Only one background 
+ thread is involved in the DataBaseAll (Scanner) object.  
+ 
+ I added IDs to the files so we know for sure which file a change is about, the previous version used file names,
+ and that was not unique. Even though the Datatable is not the GUI, we still need to update it in the GUI thread
+ because it propagates changes to the GUI.  So all changes that we make to the datatable that are not made by
+ the GUI thread need to be invoked, or strange thins MAY occur (sometimes).
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.GUI.TimeText.Minimum">
+	<summary>
+ Minimum total value in seconds that will be accepted
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.GUI.TimeText.Maximum">
+	<summary>
+ Maximum total value in seconds that will be accepted
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.TerminalControl.AppendText(System.String,System.Boolean,System.Drawing.Color)">
+	<summary>
+ Thread safe manner to append text in the terminal
+ </summary>
+	<param name="s"></param>
+	<param name="newline"></param>
+	<param name="c"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.TerminalControl.Close">
+	<summary>
+ Remove handlers when closing as this sometimes creates thread races
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CytoSense.GUI.TerminalControl._log">
+	<summary>
+ The terminal creates a seperate instance logger, so each termnal writes it's messages to a specific logger,
+ and we can easily distinguish them in the log file.  We initialize it to the basic type logger, and later
+ when the terminal is setup we replace this with a specific one.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.TerminalControl.TextboxTerminal_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)">
+	<summary>
+ Displays/hides a scrollbar if middle mouse button is pressed
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Dirs">
+	<summary>
+ Contains standard dir locations for various files to be saved or opened with Cytobuoy software
+ </summary>
+	<remarks>At this moment, cannot be changed from CytoUSB</remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.FlushTime(System.Int32)">
+	<summary>
+ Calculates the needed flush time for a specific valve
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.GPPIO.BitAddress">
+	<summary>
+ Bit address of the IO pin on the PC8574
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.PinchValve.TubingLength">
+	<summary>
+ Length of the line connected to this pinchvalve in m
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.PinchValve.TubingDiameter">
+	<summary>
+ Diameter of the tubing connected to this pinchvalve in  mm
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.PinchValve.CurrentPosition">
+	<summary>
+ The current position of this pinchvalve (open/closed)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.PinchValve.StandardPosition">
+	<summary>
+  Position when not powered
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.Pump.CurrentPumpState">
+	<summary>
+ State of the pump. True = pump is pumping.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.Pump.PumpingRate">
+	<summary>
+ Speed of the pump.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.Pump.TubingLength">
+	<summary>
+ Length of the line connected to this pump
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.MultiSampler_settings.Pump.TubingDiameter">
+	<summary>
+ Diameter of the tubing connected to this pump
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.ctrlChannelParameterSelector.#ctor">
+	<summary>
+ The default constructor is for designer purposes only. To actually use the control use a constructor with arguments.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.GUI.ctrlAxisSelector">
+	<summary>
+ A user control that wraps around two channelparameterselectors in order to create an Axis (either single or ratio)
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.GUI.CustomForm.CreateRoundRectRgn(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+	<summary>
+	</summary>
+	<param name="nLeftRect">x-coordinate of upper-left corner</param>
+	<param name="nTopRect">y-coordinate of upper-left corner</param>
+	<param name="nRightRect">x-coordinate of lower-right corner</param>
+	<param name="nBottomRect">y-coordinate of lower-right corner</param>
+	<param name="nWidthEllipse">height of ellipse</param>
+	<param name="nHeightEllipse">width of ellipse</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.RawParticle.ID">
+	<summary>
+ Contains ID of the particle in the measurement
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.SegmentedData.RawParticle.getMultiplexedBytes">
+	<summary>
+ Depriciated function for backwards compatibility for CC3
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.SegmentedData.RawParticle">
+	<summary>
+ A intermidiate wrapper for particles, stripped down to the bear minimum of instanced fields to prevent memory 
+ problems, while remaining efficient in terms of cpu usage when converting back to a real particle.
+ This class is to be used to store particles efficiently in the segmented data format and the BigDataProcessor.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.SegmentedData.RawIIFParticle">
+	<summary>
+ The same as above, but now with an image attached. TODO: extend with processImagedStream
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.SegmentedData.DataSegmentType">
+	<summary>
+ A segmented datafile is build up as follows:
+ [Header segment]
+ [Datafile structure]
+ [Particle Segment 1]
+ [Particle Segment 2]
+     .
+     .
+     .
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.SegmentedData.ParticleDataSegment.getMultiplexedBytes">
+	<summary>
+ Deprecated function for backwards compatibility for CC3
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.SegmentedDataFileHeader.df_info">
+	<summary>
+ A special segment for the datafile info, which should always be there
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.SegmentedDataFileHeader.Segments">
+	<summary>
+ Contains a list of the normal data segments
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.SegmentedData.SegmentedDataFileHeader.hasType(CytoSense.Data.SegmentedData.DataSegmentType)">
+	<summary>
+ Checks all segments if 
+ </summary>
+	<param name="t"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.SegmentInfo.Offset">
+	<summary>
+ Offset nBytes in the total datafile from 0
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.SegmentInfo.Count">
+	<summary>
+ Size of the segment
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.SegmentInfo.Type">
+	<summary>
+ Type of the segment
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.SegmentedData.BigDataProcessor.saveworker">
+	<summary>
+ Worker thread which periodically checks if the current buffer if full, in which case the write pointer is switch to a new buffer and the filled buffer is written to disk to a tmp file.
+ If the _writeRemainderAndFinish flag is set, the worker is finished by saving the current (half full) buffer and exiting the while loop
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.SegmentedData.BigDataProcessor.writeRemaindertoPBuf">
+	<summary>
+ Make sure all data is written to the buffers before saving to file
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.BigDataProcessor.BufferPaths">
+	<summary>
+ Contains the filepaths to all temporarily saved buffer files
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.BigDataProcessor.ByteCounter">
+	<summary>
+ Denotes how much pulseshape bytes are saved in total. Other data is ignored
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.SegmentedData.BigDataProcessor.ParticleCounter">
+	<summary>
+ Denotes the total amount of particles that were processed.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.SegmentedData.BigDataProcessor">
+	<summary>
+ Handles large amounts of particles that don't fit in memory anymore, by means of a triple buffer which are written to disk in tmp files
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFunctions.saveDatafile(System.String,CytoSense.Data.Data.DataFile,System.String[],System.String[],System.String[])">
+	<summary>
+ Saves a CYZ datafile with seperate particle buffers to one file (many) from temporary files. Exceeds previous limitations of normal serializing
+ </summary>
+	<param name="path"></param>
+	<param name="df"></param>
+	<param name="pbufpaths_smart"></param>
+	<param name="pbufpaths_all"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFunctions.loadDatafileHeader(System.String)">
+	<summary>
+ Loads the index segment (header) of a segmented datafile. The index segment comprises from the first 65535 bytes of the file. 
+ </summary>
+	<param name="path"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFunctions.loadDatafile(System.String,System.Collections.Generic.List{System.Int32},CytoSense.Data.CyzOpenMode,CytoSense.Data.SegmentedData.DataSegmentType)">
+	<summary>
+ A backwards compatibel datafile loader. If a old type directly serialized datafile structure is to be loaded, 
+ it will load as usually. If a new type segmented data file is to be loaded and segments is nothing, it will load the data file in 
+ compatibility mode. This means that only one pulseshape particle data segment will be loaded. If a smarttriggered 
+ segment is available, the first one of those will be used. Otherwise the first normal (allparticledata) segment is
+ used and placed in the datafile. If  image in flow segments are available, also from those the first will be loaded
+ For the newer files you can specify you want just the header.  In that case only the header info will
+ be loaded, and the resulting datawrapper will not contian any particles or images, only header information.
+ </summary>
+	<param name="path"></param>
+	<param name="openMode">Try to load only the header, or the complete file..</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataFunctions.fixOldDataFile(System.String)">
+	<summary>
+ Currently, this function will fix files that have the Cytosense.data.particle class serialised in IIF. This causes problems with the new arranging through CytoSense.Data.ParticleHandling.
+ </summary>
+	<param name="path"></param>
+	<returns></returns>
+	<remarks>If more legacy anomalies are discovered, this function can be extended to check for a dll version (which is sort of in the header of the file) and take appropiate action</remarks>
+</member><member name="M:CytoSense.Data.DataFunctions.searchAndReplace(System.Byte[],System.String,System.String)">
+	<summary>
+ Peforms a search and replace all in the data array 
+ </summary>
+	<param name="data"></param>
+	<param name="search"></param>
+	<param name="replace"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.ImagedParticle.ImageHandling">
+	<summary>
+ Gives acces to the images and related functions and properties
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.ParticleHandling.ImagedParticle.ProcessedImage">
+	<summary>
+ The optional image matched by this particle, automatically cropped to the particle
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataWrapperFunctions.smartTrigger(CytoSense.Data.ParticleHandling.Particle,CytoSense.MeasurementSettings.SmartTriggerSettings[])">
+	<summary>
+ Tests if particle agees with the smartTriggersettings. Returns true if particle is ok.
+ </summary>
+	<param name="p"></param>
+	<param name="smartTriggerSettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataWrapperFunctions.createMultiPlexedData(System.Collections.Generic.List{CytoSense.Data.ParticleHandling.Particle},CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Recreates the multiplexed byte stream to remain compliant with datafile format
+ </summary>
+	<param name="siftedParticles"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataWrapperFunctions.createSets(CytoSense.Data.ParticleHandling.Particle[])">
+	<summary>
+ Function to create a list of cluster sets from a list of particles with cluster info embedded
+ </summary>
+	<param name="p"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataWrapperFunctions.writeSubsetCyzFile(System.String,CytoSense.Data.DataFileWrapper,System.Collections.Generic.List{CytoSense.Data.ParticleHandling.Particle},System.String,System.String)">
+	<summary>
+ Write out a subset of the datafile as a new datafile that only contains the selected particles.
+ </summary>
+	<param name="origFileName">The name of the original file, used to load header and stuff.</param>
+	<param name="wrapper">The datafile wrapper containing all the data.</param>
+	<param name="subset">The selection of particles that need to be saved.</param>
+	<param name="newFileName">The name of the file to be created.</param>
+	<param name="comment">A comment that will be added to the file</param>
+	<remarks>
+ NOTE: We do not support segmented datafiles at the moment.
+ Because we need to create a new wrapper, etc.  We reload the original file using the filename found in
+ the wrapper, we use the header from the fileloaded form disk, and replace the data with the data in the
+ subset parameter.
+ 1) Load original datafile
+ 2) Remove data from it
+ 3) Generate new data
+ 4) Generate reduction info + add comment ´Copied from CSreader in CC3, not sure it all makes sense.
+ 5) Update measurment info.
+ 6) Handle IIF data for the particles in the subset.
+ 7) Save file.
+ </remarks>
+</member><member name="M:CytoSense.Data.GPS.GPSCoordinate.#ctor(System.String)">
+	<summary>
+ Construct with a seperated NMEA 0183 gps string
+ </summary>
+	<param name="s"></param>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.GPS.GPSCoordinate.Longitude">
+	<summary>
+ The longitudinal position in degrees. The western hemisphere is negative.
+ </summary>
+</member><member name="P:CytoSense.Data.GPS.GPSCoordinate.Latitude">
+	<summary>
+ The latitudinal (?) position in degrees. The southern hemisphere is negative.
+ </summary>
+</member><member name="P:CytoSense.Data.GPS.GPSCoordinate.RawString">
+	<summary>
+ Returns the raw gps data string as it was received from the GPS device
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.GPS.GPSCoordinate.TimeStamp">
+	<summary>
+ Returns the timestamp as measured by the pc when receiving this coordinate set
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.GPS.GPSCoordinate.latlonPoint">
+	<summary>
+ The position as a point (pair of floats)
+ </summary>
+</member><member name="M:CytoSense.Data.GPS.GPSCoordinate.CalDistance(System.Double,System.Double,System.Double,System.Double)">
+	<summary>
+ Calculates the distance between 2 gps coordinate sets
+ </summary>
+	<param name="Lat1"></param>
+	<param name="Lon1"></param>
+	<param name="Lat2"></param>
+	<param name="Lon2"></param>
+	<returns>Returns distance in km</returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.GPS.GPSCoordinate">
+	<summary>
+ This class implements the NMEA 0183 GPS protocol
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataExporter.writeListmodeData(System.String,System.Boolean[0:,0:],CytoSense.Data.DataExporter.FileFormat,CytoSense.Data.DataExporter.ArrivalTimeExportMode,System.Boolean@,System.String,CytoSense.Data.ParticleHandling.Particle[]@)">
+	<summary>
+ Writes the 'Listmode data', that is parameters per particle in each row, to a file
+ </summary>
+	<param name="listmodeTable">listmodetable has parameters in the first dimension, channels in the second.
+ So for example listmodeTable(0,1) is the first parameter (usually length) of the second channel in the channellist</param>
+	<param name="outputFormat">Desired output format</param>
+	<param name="showSaveDialog">Show a dialog to let the user choose where to save or not</param>
+	<param name="defaultfileName">Default save location, full file path</param>
+	<param name="subset">The particle subset to save. If Nothing, all particles are saved.</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataExporter.GetParameterMax(CytoSense.Data.ParticleHandling.Particle[],CytoSense.CytoSettings.ChannelWrapper,CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector)">
+	<summary>
+ Returns the maximum value for a parameter. Dummy implementation
+ </summary>
+	<param name="particles">All the particles</param>
+	<param name="chan">The channel</param>
+	<param name="par">THe parameter</param>
+	<returns>The maximum value for the parameter, Eeeh, 262144 :-)</returns>
+	<remarks>According to the spec, a lot of machines use 262144 for this, and when using floats
+ vlaues may be larger then what is specified here, so we simply use that. For now.</remarks>
+</member><member name="M:CytoSense.Data.DataExporter.saveListmodeDataAsFcs(System.String,CytoSense.Data.DataFileWrapper,CytoSense.Data.ParticleHandling.Particle[],System.Boolean[0:,0:],CytoSense.Data.DataExporter.ArrivalTimeExportMode,System.String)">
+	<summary>
+ Save data in FCS 3.1, for details see: http://www.isac-net.org/
+ </summary>
+	<param name="origFilename">The name of the original datafile we are saving</param>
+	<param name="dfw">THe datafile the particles come from.</param>
+	<param name="particles"></param>
+	<param name="listmodeTable">Strange multi dimensional boolean array, could be a more usefull format</param>
+	<param name="arrTimeExport"></param>
+	<param name="newFileName">The name of the fcs file we are writing.</param>
+	<remarks>Based on CC3 function, with (very) minor changes.
+ An fcs file consists of a small header, a text segment that describes the
+ data, and then a data segment with all the per particle data.
+ The header contains all the segment offsets and sizes, so we need to 
+ prepare the segments before writing the header. (Or write it, and
+ go back to the beginning to modify the offsets, but that is more work
+ and more error prone.
+ The header is not that big so we can prepare that and we know how many samples
+ there are so we know the size of the data segment.
+ We use a backslash '\' as the seperator for the file.  This is not
+ required, but used as an example in the specification so probaly the most
+ widely supported version.
+ </remarks>
+</member><member name="M:CytoSense.Data.DataExporter.writePulseData(CytoSense.Data.DataExporter.FileFormat,CytoSense.Data.DataExporter.ArrivalTimeExportMode,System.Boolean@,System.String,System.Boolean,CytoSense.Data.ParticleHandling.Particle[])">
+	<summary>
+ Writes the pulse data to a file, each column a channel and each row a time instant. Particles are separated by two all-zero rows.
+ </summary>
+	<param name="outputFormat">Desired output format</param>
+	<param name="showSaveDialog">Show a dialog to let the user choose where to save or not</param>
+	<param name="defaultfileName">Default save location</param>
+	<param name="rawBytes">When set to true, it will export the raw data for all the hardware channels (only for csv files)</param>
+	<param name="particles">The array of particles subset to save (zero-based). If Nothing, all particles are saved.</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataExporter.savePulsesAsCSV(CytoSense.Data.ParticleHandling.Particle[]@,System.String@,CytoSense.Data.DataExporter.ArrivalTimeExportMode,System.Boolean)">
+	<summary>
+	</summary>
+	<param name="subset"></param>
+	<param name="filepath"></param>
+	<param name="arrTimeExport"></param>
+	<param name="rawBytes">When set to true, the system will epxort the raw bytes for all hardware channels. Quick hack for Fransjan, not very efficient or pretty.</param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.DataExporter">
+	<summary>
+ This class provides methods to save Cytosense data to other, more interoperable formats than cyz.
+ Why not remove them members of this calss and give it shared methods only.  It is only created for the
+ duration of an export, and if we remove the datafile member, and make that a parameter.
+ </summary>
+</member><member name="M:CytoSense.Data.DataBase.FileManager.indexof(System.String)">
+	<summary>
+ Simple way to check if the file is available in the filemanager. In the future it may be necessary to include extra checks, such as the measurement date and size. 
+ </summary>
+	<param name="filename"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.IDirManagerCallBack.NextFileIdId">
+	<summary>
+ Call this to get a new Unique file ID.  (32 bits should be enough for one new file per second for the next 68 years!
+ </summary>
+	<returns>A new unique file iD.</returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.IDirManagerCallBack.FolderGone(CytoSense.Data.DataBase.CyzDirManager)">
+	<summary>
+ Report that the folder this dir manager is watching disappeared.  The manager will need to be cleaned up and all files
+ removed form the database.
+ </summary>
+	<param name="sender"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.IDirManagerCallBack.FolderChanged(CytoSense.Data.DataBase.CyzDirManager)">
+	<summary>
+ There was a change in the folder that this dirmanager is watching.  For now we do not report more details.
+ A simple scan on the folder is not that expensive, and there will be relatively few modifications
+ normally.
+ </summary>
+	<param name="sender">The directory manager that sends the event.</param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.DataBase.IDirManagerCallBack">
+	<summary>
+ The overall manager needs to provide this callback interface so we can notify it of interesting stuff.
+ This replaces the event notification, not sure this is much better. It allows us to return data from
+ the callback that we need in the NextFileId function, so we need it for that. And in the other case
+ it removes the need for al the AddHandler/RemoveHandler stuff, so we cannto for get it.
+ A disadvantage is the closer coupling between the single  CyzDirManager, and the overall container class
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.MarkFolderGone">
+	<summary>
+ Mark this dirmanager object that the folder will be removed, all processing should be stopped,
+ except for the FolderGone message. 
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.GetSingleMachineTable(System.String,System.DateTime)">
+	<summary>
+ Retrieve the machine table for the requested maching on the specified date.  Or Nothing if
+ information for the machine is not present in the database.
+ </summary>
+	<param name="machine"></param>
+	<param name="onDate"></param>
+	<returns>A datatable with the requested infomration, or nothing if the machine info can not be found.</returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.InitializeDb">
+	<summary>
+ Try to load the database, if present, and do a quick scan of the files that are in the folder/and or database.  
+ Files that are OK are sent directly to the datatable, for files that are not in the db or not uptodate
+ we only send filename/size properties, etc.  The actual scanning of the file is done later.
+ This way we quickly see the names and info from the db, and the slow scanning is performed later.
+ When starting, first do an initializeDb and then a ScanFolderChanges, to do the detailed scanning
+ checking of the file entires are still uptodate.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.FolderGone">
+	<summary>
+ Call this when the folder is gone, all watcher are stopped, and all files are reported as deleted,
+ so the internal structures will get update correctly.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.ClassifyFiles(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+	<summary>
+ Generateds 3 list of files, newFiles in the directory, deleted files that no longer exits, and a list of
+ existing files that mayhave changed (or not).
+ </summary>
+	<param name="newFiles"></param>
+	<param name="deletedFiles"></param>
+	<param name="existingFiles"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.ScanFolderForChanges">
+	<summary>
+ Scan the folder for changes, compare the contents of the folder with the contents of the db.  Remove
+ deleted files, add new files, and scan new/changed files to get the detailed information.
+ Current split of responsibilities between dirmanager and cyzdb may not be ideal.
+ First get a list of filenames, then compare that to our internal lists.
+ First delete old files, report new files the same as in the initializing code.
+ We do this first, so we can quickly show that in the GUI.
+ Then start scanning all the new and changed files.
+ When there are errors loading a file, we do not want to stop all file loading,
+ instead we want to just fail that one file, so we need to try catch 
+ each file loading.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CyzDirManager.GenerateFileListAndMapping">
+	<summary>
+ Called during init, scans the dir, and generated IDs for all files, and sends notifications for all files.
+ If the file matches one loaded in the database then all information is sent, else only the filename/size/etc.
+ is sent.  The details should be checked later, and also if the file is still upto date.
+ NOTE: Could be combined with the db loading to be more efficient. Current split of responsibilites is not
+ ideal.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CytoSense.Data.DataBase.CyzDirManager._idFileMap">
+	<summary>
+ Create our own mapping of filenames (unique per directory) to fileIds, unique within the program
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.DataBase.CyzDirManager">
+	<summary>
+ This class is responsible for 'Managing' a directory with cyz datafiles, and (possibly) a cyz db file in it.
+ It loads the db file if present, writes it back after changes.  Watches the directory for changes, and
+ sends out notifications if changes happen.
+ 
+ It uses file watchers to watch the content of the directory,  these callbacks run in seperate
+ (Threadpool) threads, the callbacks simply rais events that should be handled in another class.
+ Please beware that these callbacks run in different threads.  The plan is they
+ simply insert the information into a queue, and we have one or more seperate threads
+ that pull from this queue to do the actual scanning of the changes and propagation of the
+ content to the rest of the application.
+ 
+ NOTE: THe directory watcher callbacks are queued, and also the notifications for filechanges 
+ are queued in the overall maanger, so it is possible for a lot of events to be queued when
+ the folder is deleted and the object disposed.  So all the methods that can be
+ called from the outside need to check if the object is disposed to avoid crashes.
+ 
+ When removing a folder from the lsit, it is marked as gone immediately, and this will
+ cause processing of any messages to stop.  Once a dirmanager is marked as FolderGone, 
+ then it will no longer process any message,s and this state cannot be reversed.
+ The actual removal is still queue, so if the scanner is busy scanning other threads it
+ can still take a while before the user sees it, but the scanning of the directoryr emoved
+ should stop immediately (well after the next file).
+ </summary>
+	<remarks>NOTE: Basicly it contains all the fields from the CytoDB and Cyz db classes that is not
+ serialized.  I moved it out of the class to seperate the concerns.
+ </remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.#ctor(System.String,System.String)">
+	<summary>
+ Create database object for a directory.  THe database object has functions for scanning the files,
+ loading the db, file, etc.  The actual logic for wathing the directory, repsonding to events, etc.
+ Is inside a seperate DirManager class.  Probalby part of the remote client stuff also needs to 
+ move there, not sure though.
+ 
+ </summary>
+	<param name="sourcefolder"></param>
+	<param name="dbName"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.LoadDataSetValuesFromOtherDataSet(System.Data.DataSet)">
+	<summary>
+ Load the values from the other dataset into the current one.  If the tables and
+ columns of the otherDS are exactly the same as the current one, then we can just replace 
+ the dataset.  If they are not the same we have to start copying values.  This is more work
+ but should not happen very often.
+ </summary>
+	<param name="otherDS">Another dataset for a cyzDB, usually loaded from disk.</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.IntersectedColumnNames(System.Data.DataTable,System.Data.DataTable)">
+	<summary>
+ Returns a list of column names for all columns that exist in both the destination and the
+ source tables.
+ </summary>
+	<param name="dest"></param>
+	<param name="src"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.CopyTableRows(System.Data.DataTable,System.Data.DataTable)">
+	<summary>
+ Copy all the rows from src into the destination table.  Columns present in dest and
+ not in src will remain empty.  Columns that are present in src, but not in destination 
+ are simply ignored.
+ </summary>
+	<param name="dest"></param>
+	<param name="src"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.loadExistingCyzDB">
+	<summary>
+ Loads the serialized database results of the sourcefolder
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.processProperties(System.ComponentModel.PropertyDescriptorCollection,CytoSense.Data.DataBase.cyzDB.modeEnum,System.Tuple{System.Collections.Generic.List{System.Data.DataColumn},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String}})">
+	<summary>
+ Runs throught the properties, and adds them as colunms if visible (for this mode)  while updating the dictionaries
+ </summary>
+	<param name="pdc"></param>
+	<param name="mode"></param>
+	<param name="t"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.defineDataStructure">
+	<summary>
+ This function defines the tables and their entries in the database. 
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.getMachineRow(System.String,System.DateTime)">
+	<summary>
+ Returns the row from the machines table with the machine in the configuration of the given date
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.getFilesCell(System.IO.FileInfo,CytoSense.Data.DataFileWrapper,System.String)">
+	<summary>
+ This function returns the requested field (columnName) from dfw or file. The fields are described first by the defineDataStructure sub. 
+ </summary>
+	<param name="file"></param>
+	<param name="dfw"></param>
+	<param name="columnName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.ScanFile(System.String,System.Data.DataRow)">
+	<summary>
+ Scans the file, and stores all the values in row.
+ </summary>
+	<param name="fullPath"></param>
+	<param name="row"></param>
+	<remarks>FIXME: The use of EvaluationException to indicate a machine is not in the database is
+ not very pretty, and relatively expensive.
+ </remarks>
+</member><member name="P:CytoSense.Data.DataBase.cyzDB.totalSize">
+	<summary>
+ Returns the total size of all the files (in MB) in the db combined.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.cyzDB.ToString">
+	<summary>
+ Give some handy information for debugging: the sourcefolder
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.DataBase.CytoDB.loadDBfromFile(System.String)">
+	<summary>
+ Loads an existing database, and checks if it's up to date. If it is an older version, discards and removes it.
+ </summary>
+	<param name="sourcefolder"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataBase.CytoDB.data">
+	<summary>
+ The actual database of the folder
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.DataBase.CytoDB.SourceFolder">
+	<summary>
+ The folder where this database is supposed to be located
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.Workspace.Load(System.String,CytoSense.Data.DataFileWrapper)">
+	<summary>
+ Supports CC3 and CC4 workspaces
+ </summary>
+</member><member name="T:CytoSense.Data.Analysis.Workspace">
+	<summary>
+ The workspace definition as stored in a file.  It contains the definition of all the sets
+ and the gates, and can be used to filter particles from datafiles.
+ It also contains some related settings used for displaying in CytoClus, such as
+ the definition of the plots, etc.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.UnassignedParticlesSet">
+	<summary>
+ A set that contains only particles that are not yet used in another class
+ The using classes are responsible for keeping the allSets property up-to-date. If this is the case the recalculateIDs will do the work.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.SetsList.Remove(CytoSense.Data.Analysis.CytoSet@)">
+	<summary>
+ Remove a set from the list.  If this set is used in (one or more) 
+ combined sets, then the combined sets have to be removed as well.
+ Since sets combining can be nested, we need to do this scanning 
+ recursively.
+ Find all composite sets that reference this set, then remove
+ it, repeat for all sets untill we have no more sets let to remove.
+ </summary>
+	<param name="item"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.SetsList.Add(CytoSense.Data.Analysis.CytoSet@)">
+	<summary>
+ Add an item to the set.  If it is gate based we connect an event handler to get
+ updates of changes in the set.  And we make sure the set has a Unique list ID.
+ We try to avoid changing ids of existing sets to avoid problems with stored IDs
+ in a sets view.  The reordering that was used in the old version is removed.
+ Item is added at the end, except if there is an unassigned particle set we leave that
+ at the end.
+ </summary>
+	<param name="item">The set to add.</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.SetsList.GetNextFreeId">
+	<summary>
+ Get the next free ID to be used for a set.  
+ We simply scan the list for the highest ID, and then add 1 tot that.
+ </summary>
+	<returns>The next free ID.</returns>
+	<remarks>Not the most efficient implementation, but the lists should be short and
+ adding new sets happen infrequenctly so ti should not matter that much.</remarks>
+</member><member name="M:CytoSense.Data.Analysis.SetsList.indexesChangedEventHandler(System.Int32)">
+	<summary>
+ A change in one of the gate based sets, we have to scan  to find _all_
+ combined sets directly or indirectly affected by this. (and the unassigned 
+ set nees to be recalculated as well.)
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.SetsList.moveSet(CytoSense.Data.Analysis.CytoSet@,System.Boolean@)">
+	<summary>
+ Moves the given set (of level 0) up or down if possible. This influences draw order in plots.
+ NOTE: Need to rethink this, all set can be reordered, we only have
+ level 0 at the moment, so all can be moved for the set. except the default set,
+ and possibly the unassigned set which should be last.
+ </summary>
+</member><member name="T:CytoSense.Data.Analysis.SetsList">
+	<summary>
+ A list of sets, with some specific functionality. This wraps around a normal list, to implement specific ways of adding and removing sets, ao.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.indexBasedSet">
+	<summary>
+ An indexbased set contains little more than a list of particles to include. Mostly useful for importing exported results from other programs.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.DefaultSet.Clone">
+	<summary>
+ Duplicating the defaultset is not possible, because there's only one defaultset in a datafile
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.gateBasedSet.deleteGate(CytoSense.Data.Analysis.Axis@,CytoSense.Data.Analysis.Axis@)">
+	<summary>
+ Deletes the gate if any is present in the specified axis dimension. If there is no gate, nothing changes.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.gateBasedSet.RemoveGate(CytoSense.Data.Analysis.IGate)">
+	<summary>
+ Removes the gate g from the gate collection IF it was present in the gatecollection.
+ And recalculates the indexes iof required.  If the gate is not present then 
+ nothing changes.
+ </summary>
+	<param name="g"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.gateBasedSet.hasGateInDimension(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Determines if this set has a gate in the given dimension
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.CytoSet.Concentration(CytoSense.Data.ConcentrationModeEnum)">
+	<remarks>concentratin in parts/uL</remarks>
+</member><member name="P:CytoSense.Data.Analysis.CytoSet.ListID">
+	<summary>
+ The place in the setslist of this set (zero-based, only defaultset can have 0)
+ Used to be the place, currently simply an ID.
+ </summary>
+	<remarks>Mainly used for drawing the treestructure, and the list in the image viewer. This does not take hierarchy into account.</remarks>
+</member><member name="T:CytoSense.Data.Analysis.CytoSet">
+	<summary>
+ This is the abstract base class for various types of sets
+ List ID must be unique within the list it is in.  This should be handled
+ when adding to the list.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.CytoSetDefaultColors">
+	<summary>
+ A class that generates nice and bright colors for the sets.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:CytoSense.Data.Analysis.SetsCombinationType.set1OR2">
+	<summary>
+ All particles that are in set 1 OR set 2. Basically the sum of the two.
+ </summary>
+</member><member name="F:CytoSense.Data.Analysis.SetsCombinationType.set1AND2">
+	<summary>
+ All particles that are in set 1 AND set 2. Basically only the particles that are in both sets simultaneously.
+ </summary>
+</member><member name="F:CytoSense.Data.Analysis.SetsCombinationType.set1NOT2">
+	<summary>
+ All particles that are in set 1 and NOT in set 2. Basically set1 - set2.
+ </summary>
+</member><member name="T:CytoSense.Data.Analysis.AllImagesSet">
+	<summary>
+ A set that contains all particles with an image in the current file
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Reporting.getTextReportSets(CytoSense.Data.Analysis.Workspace)">
+	<summary>
+ Returns a large string with info about the various sets, in a table format:
+ [name] [number of particles] [concentration (p/μl)]
+ The workspace should contain a datafile already! Uses the standard concentrationmode
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Reporting.getTextReportInfo(CytoSense.Data.DataFileWrapper)">
+	<summary>
+ Returns a large string with info about the measurement info, in a table format:
+ [PropertyName] [value] 
+ The workspace should contain a datafile already!
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Reporting.getTextReportSettings(CytoSense.Data.DataFileWrapper)">
+	<summary>
+ Returns a large string with info about the measurement settings, in a table format:
+ [PropertyName] [setting] 
+ The workspace should contain a datafile already!
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.RectangleGate.#ctor(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis,System.Drawing.RectangleF)">
+	<summary>
+ Instantiates a rectangular gate
+ </summary>
+	<param name="rectangle">The rectangle in axis coordinates. Note that we adopt the convention from the drawing namespace: the location (x,y) of the 
+ rectangle are the minimal coordinates. In axis coordinates this is the lower left corner, and when transformed to screen coordinates, other classes
+ will have to adapt.</param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.RectangleGate.#ctor(CytoSense.Data.Analysis.Axis@,CytoSense.Data.Analysis.Axis@,System.Single,System.Single,System.Single,System.Single)">
+	<summary>
+ Instantiates a rectangular gate
+ </summary>
+	<param name="xMin">The minimal x value in axis coordinates</param>
+	<param name="xMax">In axis coordinates</param>
+	<param name="yMin">The minimal x value in axis coordinates</param>
+	<param name="yMax">In axis coordinates</param>
+</member><member name="P:CytoSense.Data.Analysis.RectangleGate.Outline">
+	<summary>
+ Returns the outline of the rectangle (in axis coordinates), starting with the minimal x-y pair, and then clockwise (first y increase).
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.RectangleGate.GetOutline(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Returns the outline in axis coordinates, it used the axis1 as xAxis, and axis2 as yAxis, regards of
+ the way the gate was originally defined!
+ If one of the requested axis is not present then an argument exception is thrown!
+ </summary>
+	<param name="axis1"></param>
+	<param name="axis2"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.RangeGate.Outline">
+	<summary>
+ Sequence: (maximum,+Inf), (minimal,-Inf)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.RecalculateIDs(CytoSense.Data.DataFileWrapper@)">
+	<summary>
+ This is the tricky one, here we need to recalculate for every point in the path if it is inside the polygon
+ that was specified in _pathPoints.
+ The original version used a ZedGraph object for this and bitmaps, etc.  We want to remove the zedgraph dependency
+ from this object.  However, we do need to perform this test on a lot of points, so it needs to be fast.
+ A simple point in polygon may not be fast enough.  We probably need to create some kind
+ of bitmap that we color and do a lookup.  For now I will start with the simplest 
+ solution.  And optimize later.
+ 
+ 1) Create a bounding box, for a simple first test to eliminate a lot of points, then do a real
+    algorithm for inside the box. (Calculate number of line intersections)
+ 
+ 2) Use Microsoft Geometry Classes, these are WPF classes.
+    so it would require linking to WPF.
+ 
+ 3) Create a bitmap at a certain resolution, and fill in a polygon.  Then for each
+    datapoint all we need is a lookup of the pixel color.
+ 
+ 4) System.Windows.Shapes.Polygon (Also a WPF class)
+ 
+  5) Make a drawing.drawing2d.graphicspath and use its .isVisible function (although I'm not sure whether this works 
+ if nothing is drawn
+ 
+ I think we will need to implement the bitmap coloring stuff in the end.  Point 2 and 3 are WPF
+ classes, and for now there is no dependency on WPF at all, so let's keep it that way.
+ 
+ That leaves option one.
+ 
+ Option 1 is fast enough, there is a minor problem for axis that have a log scale.  A straight line
+ drawn in a logarithmic scale is not a straight line in a the normal scale.
+ A possible solution is to transform all the coordinates and the pathpoints into
+ a logaraithmic "space" before making the check.
+ 
+ We take the 10 log of the all values for axis that are displayed in log scale.  This
+ assumes that the displayis also in log10 scale. of course.
+ </summary>
+	<param name="datafile"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.Transform(System.Collections.Generic.List{System.Drawing.PointF},System.Boolean,System.Boolean)">
+	<summary>
+ If one or more of the axis is on a log scale we need to transform that axis its coordinates, to
+ make the correct particle selection.
+ </summary>
+	<param name="orgPoints">The original unprocessed points.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.PointInPolygon(System.Drawing.PointF,System.Collections.Generic.List{System.Drawing.PointF})">
+	<summary>
+ Initial implementation, based on line crossings.  Probably not fast enough.
+ Will need to do something more clever.  But just want to get it working now.
+ Will be really inefficient for e.g. Freeform with lots of line segments.
+ 
+ Bascily we consider the polygon to consts of numPoints sections, section 0 is from point
+ 0 to point 1, and section 1 is form point 1 to point 2, and section n is from point n to
+ point 0.  So the last section is a special case.
+ 
+ Points that are exactly on the line can go both ways. It depends on the orientation of
+ the segment.
+ </summary>
+	<param name="p"></param>
+	<param name="polygon"></param>
+	<returns></returns>
+	<remarks>Public, to facilitate easy testing. Based on 
+ http://alienryderflex.com/polygon/ 
+ http://geomalgorithms.com/a03-_inclusion.html
+ http://www.codeproject.com/Tips/84226/Is-a-Point-inside-a-Polygon
+ </remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.CalculateBoundingBox(System.Collections.Generic.List{System.Drawing.PointF})">
+	<summary>
+ Calculate the bounding box for a polygon, to speed up checking if a polygon is 
+ inside.
+ </summary>
+	<param name="points"></param>
+	<returns></returns>
+	<remarks>Public for testing purposes only.
+ TODO: [r] Verify the min/max width calcualtion is correct and that I dont need to do minY-maxY or something.
+ </remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.SetValuesOnDeserialized(System.Runtime.Serialization.StreamingContext)">
+	<summary>
+ Calculate all the non serialized data. At the moment only the bounding box
+ </summary>
+	<param name="context"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.PointPathGate.GetOutline(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Returns the outline in axis coordinates, it used the axis1 as xAxis, and axis2 as yAxis, regards of
+ the way the gate was originally defined!
+ If one of the requested axis is not present then an argument exception is thrown!
+ </summary>
+	<param name="axis1"></param>
+	<param name="axis2"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.PointPathGate">
+	<summary>
+ Baseclass for both the polygon gate and the freeform gate.  Basically htese two are the same but we make 
+ some distinction with respect to how they are drawn and can be modified.  So all the real work is in this 
+ baseclass, and we only have some constructors in the subclasses.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.FreeFormGate">
+	<summary>
+ THis class is a copy of the PolygonGate, I think we do not need it and that it can be removed.
+ But for now I want to get this code to compile and work, so I simply added a copy of
+ Polygon.  Once it works I will look at removing and handling the functions somewhere else.
+ TODO: [r] Remove this class.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.GateCollection.delete(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ deletes a gate defined in these axes, if there is any. Returns false if nothing is changed
+ </summary>
+	<param name="xAxis"></param>
+	<param name="yAxis"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.GateCollection.Remove(CytoSense.Data.Analysis.IGate)">
+	<summary>
+ Remove the gate g from the collection, if g was present.
+ If g is not in the collection, the function has no effect.
+ </summary>
+	<param name="g">The gate to remove.</param>
+	<returns>True if g was removed, false if nothing was removed.</returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.GateCollection.idsCalculated">
+	<summary>
+ A flag to track if we have at least once calculated the ids of this gategroup. 
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Gate1D.HasAxis(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Return True if the axis used matches one of the 2 axis.  It does not mather which one. This definition
+ makes it easier when drawing gates in dotplots.  They need to care less about the
+ type of the gate.
+ </summary>
+	<param name="xAx"></param>
+	<param name="yAx"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.IGate.IDs">
+	<summary>
+ The Particle.IDs within this gate
+ </summary>
+</member><member name="P:CytoSense.Data.Analysis.IGate.Outline">
+	<summary>
+ A list of the outline coordinates (in data coordinates), forming a path that is used for plotting.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.IGate.GetOutline(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ A list of the outline coordinates (in data coordinates), forming a path that is used for plotting.
+ The xAxis and yAxis parameter specify the order of the x and Y that will be used for 
+ drawing, if needed the x and y values will be swapped before returning to the caller.
+ For a 1D gate, one of the gates is  adon't care, and the other must be the one that is actually
+ used.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.IGate.RecalculateIDs(CytoSense.Data.DataFileWrapper@)">
+	<summary>
+ Recalculate the IDs for this gate by applying the gate to the specified datafile.  It will check
+ each sample in the datafile, and determine if it is a match or not.  Matching IDs are stored
+ to be used later in drawing.
+ </summary>
+	<param name="datafile"></param>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.IGate.HasAxis(CytoSense.Data.Analysis.Axis,CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Returns whether the gate has BOTH of these axes, either in x and y or y and x. For  a 1D gate,
+ the functions returns true if one of the axis matches, the other one is a don't care.
+ This makes it easier to test if a gate should be drawn inside a specific plot.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.IGate.HasAxis(CytoSense.Data.Analysis.Axis)">
+	<summary>
+ Returns whether the gate has this axis (and possibly other ones as well)
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.IGate.Clone">
+	<summary>
+ Create a DEEP copy of the gate object. Note the indexes property is not copied, this will need to
+ be recalculated again.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.IGate">
+	<summary>
+ Interface definition for a gate.  Not sure this will add much, so I may decide te remove it 
+ later on.  For now it helps me focus.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.ClusterWrapper.Histogram.binMax">
+	<summary>
+ The size of the largest bin
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.Data.Analysis.ClusterWrapper.Histogram.binMin">
+	<summary>
+ The size of the smallest bin
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.Data.Analysis.ClusterWrapper">
+	<summary>
+ A class that is only used by the (discontinued?) EigenParticle project.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.CC3WorkspaceReader.#ctor(System.String,CytoSense.Data.DataFileWrapper)">
+	<summary>
+ Opens a CC3 workspace and loads it.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.CC3WorkspaceReader.retrieveAxes(System.String)">
+	<summary>
+ Creates two Axis objects (first x, then y), out of the cryptic CC3 integers. Some documentation inside the method.
+ </summary>
+	<returns>2 axis in an array, first x then y</returns>
+</member><member name="T:CytoSense.Data.Analysis.CC3WorkspaceReader">
+	<summary>
+ This class reads a CytoClus 3 workspace, and converts it to the current (cc4) workspace format.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Axis.isLogScale(CytoSense.CytoSettings.ChannelTypesEnum,CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector)">
+	<summary>
+ Can determine for an axis whether it is prudent to plot it on a log scale or not.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.Axis.getData(CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ Returns a datapoint on this axis
+ </summary>
+</member><member name="P:CytoSense.Data.Analysis.Axis.isLog">
+	<summary>
+ Denotes whether this axis is logarithmic
+ </summary>
+	<remarks>This property might seem superficial at first, but it is necessary to determine the bounds of freeforms and polygons</remarks>
+</member><member name="T:CytoSense.Data.Analysis.Axis">
+	<summary>
+ An abstract class that wraps a data dimension.
+ There are concrete subclasses for implementations, e.g. SingleAxis, RatioAxis
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.SingleAxis.#ctor(CytoSense.CytoSettings.ChannelWrapper,CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector,CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Initializes a combination of channel and parameter to generate a data dimension (dotplot axis).
+ </summary>
+	<param name="cytosettings">
+ This parameter is needed for serializing functionality
+</param>
+	<remarks>Sets the logaritmicality (YES) to the default value</remarks>
+</member><member name="F:CytoSense.Data.Analysis.SingleAxis._channel">
+	<summary>
+ The channelwrapper that defines this axis' channel. The wrapper is not allowed to be serialized, so we save it 
+ by its name and accept the loss in case of namechanges
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.SingleAxis.placeChannelName(System.Runtime.Serialization.StreamingContext)">
+	<summary>
+ Makes sure the _myChanName member to be serialized contains the correct information
+ </summary>
+</member><member name="P:CytoSense.Data.Analysis.SingleAxis.CytoSettings">
+	<summary>
+ The machine for which this axis was created. Useful when deserializing an axis in a new environment.
+ </summary>
+</member><member name="T:CytoSense.Data.Analysis.SingleAxis">
+	<summary>
+ A data dimension of one channel and parameter combination.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.Data.Analysis.RatioAxis.#ctor(CytoSense.CytoSettings.ChannelWrapper,CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector,CytoSense.CytoSettings.ChannelWrapper,CytoSense.Data.ParticleHandling.Channel.ChannelData.ParameterSelector,CytoSense.CytoSettings.CytoSenseSetting)">
+	<summary>
+ Initializes a combination of two axes (numerator, denominator) to make one ratio axis for a dotplot.
+ </summary>
+	<remarks>The default for isLog is num.isLog OR den.isLog</remarks>
+</member><member name="M:CytoSense.Data.Analysis.RatioAxis.#ctor(CytoSense.Data.Analysis.SingleAxis,CytoSense.Data.Analysis.SingleAxis)">
+	<summary>
+ Initializes a combination of two axes (numerator, denominator) to make one ratio axis for a dotplot.
+ </summary>
+</member><member name="M:CytoSense.Data.Analysis.RatioAxis.getData(CytoSense.Data.ParticleHandling.Particle)">
+	<summary>
+ Returns a datapoint on this axis
+ </summary>
+	<remarks>Warning! May return single.inf in case of division by zero</remarks>
+</member><member name="P:CytoSense.Data.Analysis.RatioAxis.CytoSettings">
+	<summary>
+ The machine for which this axis was created. Useful when deserializing an axis in a new environment.
+ </summary>
+</member><member name="T:CytoSense.Data.Analysis.RatioAxis">
+	<summary>
+ A data dimension of two channels and parameters in a ratio: AxisNum/AxisDen
+ </summary>
+</member><member name="M:CytoSense.SensorHealthLimits.#ctor">
+	<summary>
+ Default constructor, only needed for the serialization/deserialization
+ </summary>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.DetectorNoiseLevel">
+	<summary>
+ This is not good enough, detectorlevels should be per channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.SheathTemp">
+	<summary>
+ degC
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.SystemTemp">
+	<summary>
+ degC
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.PMTTemp">
+	<summary>
+ degC
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.BuoyTemp">
+	<summary>
+ degC
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.LaserTemp">
+	<summary>
+ degC
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.PressureAbs">
+	<summary>
+ mB
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.PressureDiff">
+	<summary>
+ mB
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.PressureExt">
+	<summary>
+ Bar
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.ExtSupplyPowerVoltage">
+	<summary>
+ V
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.IntVoltage">
+	<summary>
+ V
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.SensorHealthLimits.IntRecharge">
+	<summary>
+ V
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:CytoSense.CytoSettings.PIC.CytoSelector_settings.FlushTime(System.Int32)">
+	<summary>
+ Calculates the needed flush time for a specific valve
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.PIC.CytoSelector_settings.MotorPolarity_t">
+	<summary>
+ Special setting to enable reversing of the polarity. This solves most problems.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:CytoSense.BSTSettings.CreateEmptyNotPresent">
+	<summary>
+ For backwards compatibility we need to be able to create an empty, not rpesent BST settings
+ object.  But I made the constructor private to avoid accidental use.  So I created this
+ function.  THat way we can create them if required, but accidental use is less likely.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:CytoSense.BSTSettings">
+	<summary>
+ Beads Sheath-Toxin system.
+ </summary>
+	<remarks>NOTE: Only present for backwards compatibility, no longer used.  THe whole BST system has been
+ replaced, but we want to be able to load older experiments, so we leave it in.
+ Made everything readonly, and removed all ctor's except the default one needed
+ for deserialization and made that one private.</remarks>
+</member><member name="T:CytoSense.CytoSettings.StainingModuleSettings">
+	<summary>
+ Configuration of and settings for the bacterial staining module!
+ Both in one class, not really pretty I think, but for now should work.
+ And it is the way it currently works in CytoUsb.
+ </summary>
+	<remarks>
+ NOTE: Do we need to add calibration settings to the I2C temp sensors, or should we program that into
+ the firmware for the Staining Module? (And allow setting using a seperate test tool?)
+ NOTE: Not sure how this interacts with the experiment definition. Will need to check this.
+ </remarks>
+</member><member name="M:CytoSense.CytoSettings.FanControllerSettings.#ctor(System.Byte,System.Byte,System.Byte,CytoSense.CytoSettings.FanControllerSettings.TemperatureControlSlope_t,System.Byte,CytoSense.CytoSettings.FanControllerSettings.TemperatureControlSlope_t)">
+	<summary>
+ Create a settings objevt for the fan controller.
+ </summary>
+	<param name="passiveTemp">Temperature, 0 .. 64, below this temperature, the fan stops completely.</param>
+	<param name="lowTmpDcy">Lowest duty cycle, used when temperature goes below the min value set, range = 0 ..255 which is maped to 0..100 percent. So 127 is about 50% duty Cycle.</param>
+	<param name="localTmpMin">Start local temperature for temperature control. 0 .. 32, this value is multiplied by 4 to get the temperature.  Below this the lowTmpDcy is used.</param>
+	<param name="localTmpSlope">How fast should the duty cycle increase once the local temperature goes above the specified minimimum</param>
+	<param name="remoteTmpMin">Start remote temperature for temperature control. 0 .. 32, this value is multiplied by 4 to get the temperature.  Below this the lowTmpDcy is used.</param>
+	<param name="remoteTmpSlope">How fast should the duty cycle increase once the remote temperature goes above the specified minimimum</param>
+	<remarks></remarks>
+</member><member name="T:CytoSense.CytoSettings.FanControllerSettings">
+	<summary>
+	</summary>
+	<remarks>NOTE: Currently values taken map directly to the bytes sent to the fan controller,
+ it may be better to take the percentage, and degrees and convert them in the vb functions that send the commands.
+ </remarks>
+</member>
+</members>
+</doc>
