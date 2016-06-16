@@ -29,6 +29,11 @@ namespace CytoExampleDLL_CSharp
 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "CytoSense datafile|*.cyz";
+            string datadir = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\..\\..\\..\\..\\..\\Datafile_examples\\";
+            if (System.IO.Directory.Exists(datadir))
+            {
+                ofd.InitialDirectory = System.IO.Directory.GetParent(datadir).FullName;
+            }
             if (ofd.ShowDialog() == DialogResult.OK) {
                 //load the data from the serialized data file:
                 CytoSense.Data.Data.DataFile df = CytoSense.Data.DataFunctions.loadDatafile(ofd.FileName); //CytoSense.Serializing.Serializing.loadFromFile(ofd.FileName);

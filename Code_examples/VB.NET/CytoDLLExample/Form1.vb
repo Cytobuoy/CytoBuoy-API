@@ -7,6 +7,11 @@ Public Class Form1
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim ofd As New OpenFileDialog
         ofd.Filter = "CytoSense datafile|*.cyz"
+        Dim datadir As String = My.Application.Info.DirectoryPath & "\..\..\..\..\..\Datafile_examples\"
+        If My.Computer.FileSystem.DirectoryExists(datadir) Then
+            ofd.InitialDirectory = IO.Directory.GetParent(datadir).FullName
+        End If
+
         If ofd.ShowDialog = vbOK Then
 
 
