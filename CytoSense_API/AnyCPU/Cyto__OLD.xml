@@ -1,0 +1,1264 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Cyto__OLD
+</name>
+</assembly>
+<members>
+<member name="M:Cyto__OLD.Interfaces.MatlabInterface.#ctor(System.String)">
+	<summary>
+ Deserializes a CYZ file and makes the object accessible to Matlab.
+ </summary>
+	<param name="filename">The file to deserialize</param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.Clear">
+	<summary>
+ Should aid in releasing all resources occupied by this class
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllParametersForHardwareChannel(System.Int32,System.Boolean,System.Boolean,System.Boolean[])">
+	<summary>
+ Calculates all available parameters except TOF for the selected hardware channel at once.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<param name="normalize">Normalizes each parameter to 1, using the current particles array as a reference </param>
+	<param name="convertToLog">"Output 10log of parameters that are usually shown on logaritmic scale in CC. (all except Fill Factor and #cells)</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllParametersForHardwareChannel(System.Int32,System.Boolean,System.Boolean[])">
+	<summary>
+ Instructs the dll to calculate all availble parameters except TOF that are true for this channel for all particles in the datafile at once.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<param name="convertToLog">The index to the selected channel</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllParametersForHardwareChannel(System.Int32,System.Boolean[])">
+	<summary>
+ Instructs the dll to calculate all parameters that are true for this channel for all particles in the datafile. Results are not converted to log scale.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<param name="parameters">Array of booleans. If boolean at index i is true, then the corresponding parameter is calculated</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllParametersForHardwareChannel(System.Int32)">
+	<summary>
+ Instructs the dll to calculate all parameters for this channel for all particles in the datafile. Results are not converted to log scale.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllTOFs">
+	<summary>
+ Calculates all available parameters for the selected hardware channel at once.
+ </summary>
+	<returns>A vector of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetAllParametersForVirtualChannel(System.Int32)">
+	<summary>
+ Calculates all available parameters except TOF for the selected virtual channel at once.
+ </summary>
+	<param name="channel">The index to the selected channel</param>
+	<returns>A 2D array of singles</returns>
+	<remarks>This is much more efficient than calculating each parameter individually from Matlab.</remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.saveClustersInDataFile2(System.Collections.Generic.List{System.Int32},System.String)">
+	<summary>
+ Saves this datafile to Cyto__OLD CYZ file with the clusters
+ </summary>
+	<param name="labels"></param>
+	<param name="filename"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.GetParameterList">
+	<summary>
+ Returns a list of the available parameters.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.getRGBArrayFromImage(System.Drawing.Image)">
+	<summary>
+ Creates an a rgb array of bytes from an image
+ </summary>
+	<returns>[h x w x rgb] byte array of an image</returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+	<summary>
+ Must be called from the constructor to resolve all external references!
+ </summary>
+	<param name="sender"></param>
+	<param name="args"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.getparticleMatrix(System.Int32,System.Int32,System.Boolean[])">
+	<summary>
+ This function will construct a matrix which contains [channeldata; fft; cytoclus parameters]. 
+ The channeldata from the different channels is first interpolated to 
+ specific length and then put behind eachother to create a single large vector. 
+ The max amplitude of each channel's channeldata is normalized to 1. 
+ Also the cytoclus parameters are normalized, but in this case this is
+ done based on the maximum found for each parameter in the current particle set.
+ </summary>
+	<param name="interpolationlength"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Interfaces.MatlabInterface.siftParticles(System.Int32,System.Int32,System.Double,System.Double)">
+	<summary>
+ Reduces the particles in this class according to the presiftsettings
+ </summary>
+	<param name="channel"></param>
+	<param name="parameter"></param>
+	<param name="min"></param>
+	<param name="max"></param>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.Interfaces.MatlabInterface">
+	<summary>
+ Provides Matlab access to CYZ file objects via the .Net interface.
+ </summary>
+	<remarks>(Matlab does not support nested classes)</remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.Cyto__OLDSetting.getChannelIndexFromSync(System.Byte)">
+	<summary>
+ Returns the channel id given a "sync seporator" value. Does not work for the trigger channel and the dsp channel!
+ </summary>
+	<param name="sync"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.Cyto__OLDSetting.getAllVisibleChannels">
+	<summary>
+ Depreciated
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.Cyto__OLDSetting.getThisVisibleChannel(System.String)">
+	<summary>
+ Depriciated
+ Checks the list of visible channels and returns the channel that is equal or similar to the given channel.
+ Example: look for SWS, Riza will return the channel SWS HS because it doesn't have a channel wit the the strict name "SWS".
+ </summary>
+	<param name="channelname"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.Cyto__OLDSetting.setChannelVisualisationMode(Cyto__OLD.CytoSettings.ChannelAccessMode)">
+	<summary>
+ This function can be used to switch to a different mode in the way of visualizing channels. If for instance the seperate FWS channels need to be visible, set the mode to debuggingoptical
+ </summary>
+	<param name="c"></param>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.Cyto__OLDSetting.ChannelList">
+	<summary>
+ Retrieves a list of available channels, e.g. for visualisation purposes. This list is used by the particle class in the datafilewrapper.
+ </summary>
+	<returns></returns>
+	<remarks>Use setChannelVisualisationMode to set different modes of visualisation</remarks>
+</member><member name="T:Cyto__OLD.CytoSettings.Cyto__OLDSetting">
+	<summary>
+ This class encompasses all settings a machine can have
+ </summary>
+	<remarks>The settings of a machine are based around a set of defaults, so a normal machine does have the options for e.g. a sub, although they are meaningless </remarks>
+</member><member name="M:Cyto__OLD.DSP.DSPParticle.Match(Cyto__OLD.Data.ParticleHandling.Particle)">
+	<summary>
+ THis function will test of a particle has the same signature as a dspparticle, and save the particle inside if so
+ </summary>
+	<param name="p"></param>
+	<returns>True if p is matched, false if not or the particle id of p was recognized to be already tested</returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.ChannelData">
+	<summary>The unseperated sample data of this particle</summary>
+	<remarks> -ChannelData is ontdaan van syncscheiders
+-het eerste sample in _channelData is van kanaal Trigger1, daarna het 130, 132 enz kanaal
+-het laatste sample is de sample vóór het Trigger1 kanaal  
+ </remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.Image">
+	<summary>
+ The image matched by this particle
+ </summary>
+	<remarks>May be empty if corresponding image was not found, because of camera problem!
+ In case of sorter, also empty </remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.ImageStream">
+	<summary>
+ The image matched by this particle
+ </summary>
+	<remarks>May be empty if corresponding image was not found, because of camera problem!
+ In case of sorter, also empty </remarks>
+</member><member name="M:Cyto__OLD.DSP.DSPParticle.RemoveImages_PlaceStreams">
+	<summary>
+ Solves memory issues with Image
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.ProcessedImage">
+	<summary>
+ Returns a cropped version of the particle image if there is one, or nothing otherwise.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.Succes">
+	<summary>
+ Flag whether the matching of data and dsp output is OK, and a picture was matched
+ </summary>
+	<remarks>-Only datamatched particles are saved, but particles without a ImageMatch are also saved
+ -This does now  say  if the corresponding image data was found...</remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.DataMatchSucces">
+	<summary>
+ Only used in CytoUSB to check whether the matching of data from the dsp with the buffert was a succes
+ </summary>
+	<returns></returns>
+	<remarks>Does not saty anything about matched pictures</remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticle.ImageID">
+	<summary>
+ Contains the framenumber, as specified by DSP. The corresponding framenumber from the pixelink camera needs to be found. 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.DSP.IIFImage">
+	<summary>
+ Depreciated for use in CytoUSB and soon new datafiles
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.FlushTime(System.Int32)">
+	<summary>
+ Calculates the needed flush time for a specific valve
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.GPPIO.BitAddress">
+	<summary>
+ Bit address of the IO pin on the PC8574
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.PinchValve.TubingLength">
+	<summary>
+ Length of the line connected to this pinchvalve in m
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.PinchValve.TubingDiameter">
+	<summary>
+ Diameter of the tubing connected to this pinchvalve in  mm
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.PinchValve.CurrentPosition">
+	<summary>
+ The current position of this pinchvalve (open/closed)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.PinchValve.StandardPosition">
+	<summary>
+  Position when not powered
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.Pump.CurrentPumpState">
+	<summary>
+ State of the pump. True = pump is pumping.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.Pump.PumpingRate">
+	<summary>
+ Speed of the pump.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.Pump.TubingLength">
+	<summary>
+ Length of the line connected to this pump
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.MultiSampler_settings.Pump.TubingDiameter">
+	<summary>
+ Diameter of the tubing connected to this pump
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Axis.#ctor(Cyto__OLD.CytoSettings.channel,Cyto__OLD.Data.ParticleHandling.ChannelData.ParameterSelector,Cyto__OLD.CytoSettings.channel,Cyto__OLD.Data.ParticleHandling.ChannelData.ParameterSelector)">
+	<summary>
+ Initializes a combination of two axes (numerator, denominator) to make one ratio axis for a dotplot.
+ Autosize is true by default, logscale = denLog OR numLog
+ </summary>
+	<param name="channelNum"></param>
+	<param name="parNum"></param>
+	<param name="channelDen"></param>
+	<param name="parDen"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Axis.#ctor(Cyto__OLD.Data.Axis,Cyto__OLD.Data.Axis)">
+	<summary>
+ Initializes a combination of two axes (numerator, denominator) to make one ratio axis for a dotplot.
+ Autosize is true by default, logscale = denLog OR numLog
+ </summary>
+	<param name="axisNum"></param>
+	<param name="axisDen"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Axis.#ctor(Cyto__OLD.CytoSettings.channel,Cyto__OLD.Data.ParticleHandling.ChannelData.ParameterSelector)">
+	<summary>
+ Initializes a combination of channel and parameter to generate a dotplot axis. 
+ Autosize is true by default, logscale is set based on parameter type.
+ </summary>
+	<param name="channel"></param>
+	<param name="parameter"></param>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.BSTSettings">
+	<summary>
+ Beads Sheath-Toxin system.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.DataFileWrapper.findImages">
+	<summary>
+ Locate the IIFImages in the splittedparticles. 
+ Every IIFImage is already matched against pulseshape data, but due to a discrepancy 
+ between how the particles are cut in realtime and using the normal splittoparticle 
+ function, some IIFImages are not in the Splittedparticles.
+ </summary>
+	<remarks>Unfound particles are placed in a list in the datafilewrapper.iif-properties</remarks>
+</member><member name="M:Cyto__OLD.Data.DataFileWrapper.GetImageIDs">
+	<summary>
+ Returns the locations of particles with images in the splittedparticles list
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.Concentration">
+	<summary>
+ Returns concentration (parts/uL), uses method set by ConcentrationMode. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.ActualConcentration">
+	<summary>
+ Returns concentration (parts/uL), uses method set by ConcentrationMode. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ Calculates concentration as measured directly by the concentration counter. 
+ For this only the hardware triggering matters, smart triggering, file reduction etc does not.
+ </summary>
+	<remarks>
+ A horrible name of course, but preferred over OriginalConcentration by coinflip (Kevin vs Bouke):
+ You flipped 1 coin of type Dutch €1:
+ Timestamp: 2013-02-12 16:49:48 UTC
+ via random.org
+ </remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.Concentration(Cyto__OLD.Data.ConcentrationModeEnum)">
+	<summary>
+ Returns the concentration in the specified mode. If returns concentration of -1 the mode is not available.
+ Automatically adjust for smart triggering of CC reduction
+ </summary>
+	<param name="mode"></param>
+	<value></value>
+	<returns>concentratin in parts/uL</returns>
+	<remarks>Recalculates every time the mode changes</remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.ActualConcentration(Cyto__OLD.Data.ConcentrationModeEnum)">
+	<summary>
+ Returns concentration (parts/uL), uses method set by the argument. 
+ Can throw ConcentrationMisMatchException when in automatic mode and no PIC concentration count was available.
+ Calculates concentration as measured directly by the concentration counter. 
+ For this only the hardware triggering matters, smart triggering, file reduction etc does not.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.ConcentrationMode">
+	<summary>
+ Selects which concentration count is to be used. Recommend to leave at automatic mode. 
+ If however automatic mode fails, a manual choice can be made here. 
+ When in automatic mode it returns -1, no concentration count is available
+ When in another mode it returns -1, the chosen concentration count is not available
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Recommended: automatic</remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.pumpedVolume">
+	<summary>
+ Total volume by samplepumpspeed (uL/s) * duration (s) = Vol (uL)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.analyzedVolume">
+	<summary>
+ Analyzed volume by #particles (parts)/ concentration (parts/uL) = Volume (uL). 
+ Is compensated for smart triggering and file reduction.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>Concentration is automatic by default</remarks>
+</member><member name="P:Cyto__OLD.Data.DataFileWrapper.analyzedVolume(Cyto__OLD.Data.ConcentrationModeEnum)">
+	<summary>
+ Analyzed volume by #particles (parts)/ concentration (parts/uL) = Volume (uL). 
+ Is compensated for smart triggering and file reduction.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ClusterWrapper.Histogram.binMax">
+	<summary>
+ The size of the largest bin
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ClusterWrapper.Histogram.binMin">
+	<summary>
+ The size of the smallest bin
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.MeasurementSettings.Measurements.MeasurementsTime(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Calculates the total time to be taken if this measurement configuration is performed
+ </summary>
+	<param name="cytosettings"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.MeasurementSettings.Measurements.MeasurementsVolume(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Calculates the total used volume if this measurement configuration is performed
+ </summary>
+	<param name="cytosettings"></param>
+	<value></value>
+	<returns>Volume in uL</returns>
+	<remarks>Adds 5% for certainty</remarks>
+</member><member name="P:Cyto__OLD.MeasurementSettings.Measurements.CurrentMeasurement">
+	<summary>
+ Returns the measurements which CytoUSB is performing during acquiring
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Concentration.HWConcentrations.#ctor">
+	<summary>
+ CytoUSB normal usage.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Concentration.HWConcentrations.#ctor(System.Double)">
+	<summary>
+ Used to directly input a concentration. Not recommended. Class will go into fallback mode, and you need to use getFallbackConcentration istead of getConcentrationFromPoint array.
+ </summary>
+	<param name="concentration"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Concentration.HWConcentrations.getCounterPoints(Cyto__OLD.MeasurementSettings.Measurement,System.Boolean)">
+	<summary>
+ Only use if when using (datafiles with) Cyto__OLD dll release after august 2011. Else use getCounterPoints(cytosettings , measurement , UseInterpolationRecovering )
+ </summary>
+	<param name="measurement"></param>
+	<param name="UseInterpolationRecovering"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.RawDataHandling.splitData(System.Byte[],System.Int32,System.Int32@,System.Int32,System.Collections.Generic.List{System.Int32}@,System.Collections.Generic.List{System.Int32}@,System.Int32,System.Collections.Generic.List{System.Byte},System.Collections.Generic.List{System.Int32})">
+	<summary>
+Input:  A array of bytes
+Output: A jagged array containing the pulse data for each separate channel
+Output data is separated by two rows of -255
+Throws a descriptive exception if no sinc sequences are found
+ </summary>
+	<param name="rdbytes"></param>
+	<param name="nChannels">the number of fluorescence data channels</param>
+	<param name="particleCount"></param>
+	<param name="totChannels">the total no. of channels</param>
+	<param name="ends"></param>
+	<param name="starts"></param>
+	<param name="DSPChnNo"></param>
+	<param name="imgdata">(optionally) specifies a list of bytes corresponding to the raw data of imaged and matched particles</param>
+	<param name="emptyChn"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.RawDataHandling.splitData(System.Byte[],Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Depreciated. Kanaal volgorde zit verkeerd om...
+ </summary>
+	<param name="MixedParticle"></param>
+	<param name="cytosettings"></param>
+	<returns></returns>
+	<remarks>Depreciated. Komt uit CytoUSB, en is heul ranzig... Liever niet gebruiken dus</remarks>
+</member><member name="M:Cyto__OLD.Data.RawDataHandling.getsyncIndexes(System.Byte[],Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Searches for the locatuon indexes of the syncs, and returning them in a array. The 130 sync is the second sync, it should be preceded by a smaller then 128 trigger channel.
+ </summary>
+	<param name="multiplexedData"></param>
+	<param name="CytoSettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.RawDataHandling.splitToParticles(System.Collections.Generic.List{System.Byte[]},Cyto__OLD.CytoSettings.Cyto__OLDSetting@,Cyto__OLD.MeasurementSettings.Measurement@,Cyto__OLD.Data.Data.Cluster[])">
+	<summary>
+ Creates particles from data_sp continumode particle buffer
+ </summary>
+	<param name="cuttedParticles">Data_sp from datafile</param>
+	<param name="CytoSettings">Needed to create particle information</param>
+	<param name="measurementInfo">Needed to create particle information</param>
+	<returns>Array of Cyto__OLD particles</returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.RawDataHandling.splitToParticles(System.Byte[],Cyto__OLD.CytoSettings.Cyto__OLDSetting@,Cyto__OLD.MeasurementSettings.Measurement@,Cyto__OLD.Data.Data.Cluster[])">
+	<summary>
+ Will split the multiplexedData to particles. Updated to use CytoClus splitting of muxed data
+ </summary>
+	<param name="multiplexedData"></param>
+	<param name="CytoSettings">Takes channel information from Cyto__OLD, and connect it to right channel in each particle</param>
+	<returns></returns>
+	<remarks>Not parallized</remarks>
+</member><member name="P:Cyto__OLD.Data.PreSiftSetting.ChannelID">
+	<summary>
+ Returns the channel id in the machine channel list. Only use when sure that machine can not have changed since creating of the presiftsettings! Otherwise use .channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Scheduling.task.ShutDown_Afterwards">
+	<summary>
+ Makes CytoUSB shutdown the computer
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Remote.RemoteSettings.BandWidth">
+	<summary> 
+Zorg dat de gebruikte bandbreedte beneden dit pijl blijft
+ </summary>
+	<value> In kilobyte/seconde</value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.DCSamplePump.#ctor(System.Double,System.DateTime,System.Double)">
+	<summary>
+ Estimate calibration. Only use if no real calibration is available.
+ </summary>
+	<param name="Volume1Round"></param>
+	<param name="d"></param>
+	<param name="constant"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.DCSamplePump.#ctor(System.Int32,System.Double,System.DateTime,Cyto__OLD.Calibration.SamplePump.DCSamplePumpHallMeasurements[])">
+	<summary>
+ Make new DC samplepump calibration.
+ </summary>
+	<param name="numberofRounds">Number of cycles that was used to do calibration</param>
+	<param name="measuredVolume">Measured volume taking in in numberofRounds, in ul!</param>
+	<param name="d"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.DCSamplePump.getExpectedRoundTime(System.Byte)">
+	<summary>
+ calculates the roundtrip time of the sample pump with the provided speed in miliseconds
+ </summary>
+	<param name="speed"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.#ctor(System.Double)">
+	<summary>
+ Backwards compatabilty to not yet calibrated samplepumps
+ </summary>
+	<param name="SamplePumpConstant"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.getOriginalCalibrationPoints(System.Int16)">
+	<summary>
+ To plot dots of the calibration points as determined during the wizzard. Only to be used after calibration, in support graphs
+ </summary>
+	<param name="speedIndex"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.NumberOfSpeeds">
+	<summary>
+ Specifies the number of different speeds on which the sample pump is calibrated / calibrating
+ </summary>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.doCalculations">
+	<summary>
+ ReCalculates a best fit on available calibration points. Needs to be done after calibration cycle was finished
+ </summary>
+	<remarks>Only used during calibration</remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.getRatio(System.Byte)">
+	<summary>
+ Will compare the speed against the ratio table, specifying the best fit on the calibration data
+ </summary>
+	<param name="speed">byte value of the sample pump speed</param>
+	<returns>Ratio belonging to speed</returns>
+	<remarks>Should only be used when calibration was completed succesfully</remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.getFlowSpeed(System.Byte)">
+	<summary>
+ Will calculate accurate flow rate in uL/s from calibration ratio at specified speed
+ </summary>
+	<param name="speed">Direct byte level speed</param>
+	<returns></returns>
+	<remarks>Replaces getFlowRate?</remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.getRatioWhileCalibrating">
+	<summary>
+ tries to determine best ratio that can be calculated during calibration with available calbration points, on the currently calibrating speed
+ </summary>
+	<returns></returns>
+	<remarks>Only used during calibration</remarks>
+</member><member name="M:Cyto__OLD.Calibration.SamplePump.SamplePumpCalibrationData.getFlowRate(System.Int16,System.Int16)">
+	<summary>
+ Returns flowrate of one calibration point, in ml/s
+ </summary>
+	<remarks>Only used during calibration</remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Boolean)">
+	<summary>
+ Constructor for hardwired highsensitivity channel (Pico Plankton  A or C option)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="ChannelColor"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="ChannelIsHighSensitivity"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Int32,System.Boolean)">
+	<summary>
+ Constructor for switchable selectable high low setting. (Pico Plankton  B option)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="ChannellowCheckID"></param>
+	<param name="ChannelHasLowCheck"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Byte,System.Byte,System.Byte)">
+	<summary>
+ Constructor for 256 bit continous sensitivity setting (new standard, no Pico Plankton option anymore)
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="channelPMT_id">As printed on circuit board! Actual index address is -1, this is handled internally</param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.#ctor(System.String,System.Int16,System.Drawing.Color,System.Boolean,System.Byte,System.Byte,System.Byte,System.Boolean)">
+	<summary>
+ Constructor for 256 bit continous sensitivity setting, with legacy Pico Plankton C option
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelSyncPulseValues"></param>
+	<param name="c"></param>
+	<param name="ChannelIsVisible"></param>
+	<param name="channelPMT_id">As printed on circuit board! Actual index address is -1, this is handled internally</param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.#ctor(System.String,System.Drawing.Color,Cyto__OLD.CytoSettings.channel.ChannelType)">
+	<summary>
+ Constructor for CytoClus presets
+ </summary>
+	<param name="ChannelName"></param>
+	<param name="ChannelColor"></param>
+	<param name="type"></param>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.channel.PMTLevel_id">
+	<summary>
+ Returns index of pmt on the DAC5578. Which is 0 based
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.channel.PMTLevel_min">
+	<summary>
+ Minimum level of pmt on the DAC5578.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.channel.PMTLevel_max">
+	<summary>
+ Maximum level of pmt on the DAC5578.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.CytoSettings.channel.ChannelType">
+	<summary>
+ This seems to be misplaced!?
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.channel.LFchannelIndex">
+	<summary>
+ depriciated ... this information should not available IN this class, but one level above
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.channel.setAsSummedChannel(System.Int32)">
+	<summary>
+ depriciated ... this information should not available IN this class, but one level above
+ </summary>
+	<param name="LFchannelIndex"></param>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.CytoSettings.VirtualChannel">
+	<summary>
+ Provides channel information for a virtual channel.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.ChannelWrapper.#ctor(Cyto__OLD.CytoSettings.channel)">
+	<summary>
+ Constructor for virtual channel with no direct link to a hardware channel
+ </summary>
+	<param name="channel"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.ChannelWrapper.#ctor(System.Int32,Cyto__OLD.CytoSettings.channel)">
+	<summary>
+ Constructor for any hardware channel
+ </summary>
+	<param name="hw_channel_id"></param>
+	<param name="channel"></param>
+	<remarks></remarks>
+</member><member name="T:Cyto__OLD.CytoSettings.ChannelWrapper">
+	<summary>
+ Wrapper class to provide more structured access to the different channel types provided by the particle class
+ </summary>
+	<remarks>Needed because _hw_channel_id is not serialized with normal channel. Also this class will not be serialized and thus can be changed without danger </remarks>
+</member><member name="M:Cyto__OLD.CytoSettings.sensorChecks.sensordataOkay(Cyto__OLD.Data.Data.MeasurementInfo,Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Checks if sensordata (such as pressure, temp and backgroundlevels) are within allowable range.
+ </summary>
+	<param name="info"></param>
+	<param name="instrument">Usually you'd want to use the settings from the dll, not from the file (because those are up to date). 
+ File made with old versions of the database will have the checks defaulted to 0.</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.Length">
+	<summary>
+ 'Array length in samples, so not the CytoClus length feature!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.hasImage">
+	<summary>
+ Returns true if the particle has a picture matched to it.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.Image">
+	<summary>
+ The original image matched to this particle.
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.ProcessedImage">
+	<summary>
+ The optional image matched by this particle, automatically cropped to the particle
+ </summary>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.ImageHandling">
+	<summary>
+ Gives acces to the images and related functions and properties
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.TOF">
+	<summary>
+ Transition Of Focus of this particle: the total length of the signal in um.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.getMultiPlexedByteData">
+	<summary>
+ Creates multiplexed byte data, as like it would come directly from the Cyto__OLD hardware
+ </summary>
+	<returns></returns>
+	<remarks>Copy of createMultiPlexedByteData from Cyto__OLD.Data</remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.triggered(System.Int32,System.Byte,System.Byte)">
+	<summary>
+ Check if the one of the triggers was high at sampleID 
+ </summary>
+	<param name="sampleID"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.Particle.VirtualChannelData">
+	<summary>
+ Returns channeldata for a channel that was defined later in software. 0 = FWScurvature, 1 = flredsplit, 2 = ratiochannel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks>0 is only available if the machine is curvature enabled, 1 and 2 need to be initialized in CytoClus!</remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.addFLREDsplitVirtualChannel(Cyto__OLD.CytoSettings.Cyto__OLDSetting,Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware@)">
+	<summary>
+ Specialized function for splitting up flredchannel with double spaced laser setup
+ </summary>
+	<param name="cytosettings"></param>
+	<param name="flredChannel"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.ParticleVector(System.Int32,System.Boolean)">
+	<summary>
+ Interpolates all channels to prefered size, adds them to one big vector
+ </summary>
+	<param name="PreferedInterPolateLength">Interpolation length. Set to 0 to disable interpolation</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.ParticleVector_fft(System.Int32)">
+	<summary>
+ Calculate a seperate fft of each channel, append to one big vector
+ </summary>
+	<param name="fftsamples">Determines how many samples will be kept in result fft per channel. Zeros are padded when fft was to small, or fft is cutoff if too big</param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.ParticleVector(System.Int32,Cyto__OLD.Data.ParticleHandling.Particle.VectorMode,System.Boolean)">
+	<summary>
+ Interpolates all channels to prefered size, adds them to one big vector.
+ </summary>
+	<param name="PreferedInterPolateLength"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.getParameterVector">
+	<summary>
+ Puts all CytoClus parameters in an array
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.op_Equality(Cyto__OLD.Data.ParticleHandling.Particle,Cyto__OLD.Data.ParticleHandling.Particle)">
+	<summary>
+ Compares two particles by means of their DSPChannel data (SWS in most cases). Only returns true if the data matches exactly.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.Particle.op_Inequality(Cyto__OLD.Data.ParticleHandling.Particle,Cyto__OLD.Data.ParticleHandling.Particle)">
+	<summary>
+ Compares two particles by means of their DSPChannel data (SWS in most cases). Only returns false if the data matches exactly.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.createMultiPlexedData(Cyto__OLD.Data.ParticleHandling.Particle[],Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Recreates the multiplexed byte stream to remain compliant with datafile format
+ </summary>
+	<param name="siftedParticles"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.createSets(Cyto__OLD.Data.ParticleHandling.Particle[])">
+	<summary>
+ Function to create a list of cluster sets from a list of particles with cluster info embedded
+ </summary>
+	<param name="p"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.CytoImage.particleWidth">
+	<summary>
+ The maximum width (as opposed to length) of the current particle, calculated from the picture. Calculated on demand and needs an autocropped image.
+ </summary>
+	<value></value>
+	<returns>The estimated particle width in micrometer</returns>
+	<remarks>Use particleWidthStart and particleWidthEnd for locations in the image </remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.CytoImage.forceAutoCrop">
+	<summary>
+ Forces to autocrop the image in this particle, without scalebar. Is used in CytoClus to precalculate the images.
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.CytoImage.autoCrop(System.IO.MemoryStream,System.Drawing.Image,System.Int32)">
+	<summary>
+ A customizable shared autocrop function, for general use.
+ </summary>
+	<param name="sourceStream">The base image</param>
+	<param name="backgroundImage">The background image used for flatfield correction, default van be found in cytosettings.</param>
+	<param name="margin">The margin of free pixels around the cropped particle, default is 25</param>
+	<returns></returns>
+	<remarks>If the autocropping doesn't yield a successful result, the original image is returned</remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.CytoImage.getWidthPoints(System.Drawing.Image)">
+	<summary>
+ Gets the startpoint and endpoint of the maximum particle width in the given image. 
+ This should be a background-corrected autocropped image for valid results!!
+ </summary>
+	<param name="sourceImage"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData.Data_mV_unsmoothed">
+	<summary>
+ Contains unsmoothed, delogged data particle data in mV
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.ChannelData.SmoothParticle(System.Int32[])">
+	<summary>
+ See CytoClus manual.
+ </summary>
+	<param name="d"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware.#ctor(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Basic constructor. 
+ </summary>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware.#ctor(System.Byte[],Cyto__OLD.CytoSettings.channel,Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ This constructor enables you to only calculate the mv_lookup table once, instead of every time you need the delogged data for another particle
+ </summary>
+	<param name="data"></param>
+	<param name="info"></param>
+	<param name="cytoSettings">Needed for some constants to calculate parameters</param>
+	<remarks>Parameter properties are still only computed on demand</remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware.Data_Raw">
+	<summary>
+ Original byte data. Fast, bust should use smootheddata instead.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware.Data">
+	<summary>
+ Contains smoothed, delogged data particle data in mV
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_Hardware.Data_mV_unsmoothed">
+	<summary>
+ Contains unsmoothed, delogged data particle data in mV
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_Curvature.Parameter(Cyto__OLD.Data.ParticleHandling.ChannelData.ParameterSelector)">
+	<summary>
+ Returns the parameters specially calcuated for curvature. Currently no parameters are available.
+ </summary>
+	<param name="k"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_SplitFLRED.Parameter(Cyto__OLD.Data.ParticleHandling.ChannelData.ParameterSelector)">
+	<summary>
+ Returns parameters of the whole (unsplit) channel. Use an extra left/right-argument for splitted parameters.
+ </summary>
+	<param name="k"></param>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_SplitFLRED.Data_mV_unsmoothed">
+	<summary>
+ Returns the unsmoothed data of the whole referenced FLRED-channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.ParticleHandling.ChannelData_SplitFLRED.Information">
+	<summary>
+ Information of the original FLRED-channel
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.ParticleHandling.smartTrigger(Cyto__OLD.Data.ParticleHandling.Particle,Cyto__OLD.Data.PreSiftSetting[])">
+	<summary>
+ Tests if particle agees with the presiftsettings. Returns true if particle is ok.
+ </summary>
+	<param name="p"></param>
+	<param name="presiftsettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Scheduling.ExternalTriggerTask.TimeToStart">
+	<summary>
+ Not applicable
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Serializing.Serializing.VersionTrackableClass.needsUpgrade(Cyto__OLD.Serializing.Serializing.VersionTrackableClass)">
+	<summary>
+ Usage: program a property Release in the class in question of a VersionTrackableClass. Initialize this VersionTrackableClass hardcoded in the base class: Public Release as VersionTrackableClass(release date).Then when a class needs to be checked for compatability:            
+ </summary>
+	<value>If true this means some of the variables may not be properly initialized</value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Serializing.Serializing.SaveToFile(System.String,System.Object)">
+	<summary>
+ Saves an object as a serialized stream. 
+ </summary>
+	<param name="filename"></param>
+	<param name="C">Object to be serialized</param>
+	<remarks>Existing files will be overwritten without questioning
+ Please use SerializeObject class if progress information is needed</remarks>
+</member><member name="T:Cyto__OLD.Serializing.Serializing">
+	<summary>
+ Function for saving or opening general serialized objects
+ </summary>
+</member><member name="T:Cyto__OLD.Dirs">
+	<summary>
+ Contains standard dir locations for various files to be saved or opened with Cytobuoy software
+ </summary>
+	<remarks>At this moment, cannot be changed from CytoUSB</remarks>
+</member><member name="P:Cyto__OLD.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Cyto__OLD.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Cyto__OLD.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="M:Cyto__OLD.DSP.DSPParticles.#ctor(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ This class will contain only particles from which the IIF DSP has determined that they fall within
+ the selectionset as specified by the IIF parameters
+ </summary>
+	<param name="CytoSettings">Each dspparticle needs some information about the machine which was used. For instance; numberOfChannels</param>
+</member><member name="P:Cyto__OLD.DSP.DSPParticles.unmatchedImages">
+	<summary>
+ The images which could not be matched to a splitted particle. Does not always return a value!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticles.matchedImages">
+	<summary>
+ The images which could be matched to a splitted particle. Does not always return a value!
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.DSP.DSPParticles.addParticle(System.Int32,System.Int32,System.Int32,System.Byte[],System.Byte[],System.Double[])">
+	<summary>
+ Will add a particle to _dspparticles.
+ </summary>
+	<param name="PartID">Needed to filter out the right particle out of BufferT, calculated by DSP</param>
+	<param name="ImageID">Needed to retreive respective image from _fotoFilenameCollection, calculated by DSP</param>
+	<param name="BufferT">A complete block of data, which contains the dspparticle at place PartID</param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.DSP.DSPParticles.addParticle(System.Int32,System.Int32,System.Byte[],System.Double[])">
+	<summary>
+ Will add a particle to _dspparticles.
+ </summary>
+	<remarks>Implementation for manual copying of images by CytoClus</remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticles.particles(System.Int32,System.Boolean)">
+	<summary>
+ Provides acces to matched particle, including an Image if found
+ </summary>
+	<param name="index">Index of particle to be retrieved</param>
+	<param name="onlyWithImageSucces">Filters out particles without an image matched to it. Param index is also influenced by this. Maximum index is getNumberOfSucceses</param>
+	<returns></returns>
+	<remarks>Pay attention to use getNumberOfSucceses as length instead of this property.length, when onlyWithImage = true</remarks>
+</member><member name="P:Cyto__OLD.DSP.DSPParticles.Length">
+	<summary>Number of particles that were (data)matched </summary>
+</member><member name="M:Cyto__OLD.DSP.DSPParticles.getNumberOfSucceses">
+	<summary>
+ Calculates number of ImageMatched particles. Therefor, datamatch particles without an image matched are not counted.
+ </summary>
+</member><member name="M:Cyto__OLD.DSP.DSPParticles.RemoveImages_PlaceStreams">
+	<summary>
+ Solves memory issues with Image
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.saveDatafile(System.String,Cyto__OLD.Data.Data.DataFile,System.String[])">
+	<summary>
+ Saves a CYZ datafile with seperate particle buffers to one file. Exceeds previous limitations of normal serializing
+ </summary>
+	<param name="path"></param>
+	<param name="df"></param>
+	<param name="pbufpaths"></param>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.MeasurementInfo.ActualNumberofParticles">
+	<summary>
+ Replaces NumberOfParticles due to bug fix. Represents the numberofparticles actually downloaded and recognized in the computer. 
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.MeasurementInfo.ActualMeasureTime">
+	<summary>
+ Due to a bug in CytoUSB  in which the MeasureTime variable started just before the actual 
+ measurement (as it should) but ended just before saving to hd (and thus taking overhead 
+ such as measuring pmt background levels), a new better and improved measurement time was 
+ needed for precise concentration/volume calculations.
+ This actualMeasureTime is thus only measuring the time pulseshape data download was active.
+ It is calculated by measuring the difference between the MeasurementStartTime and the time the 
+ last block was received.
+ If however, no block info is available for whatever reason, the actualMeasureTime is reverted 
+ back to the original MeasureTime, because in the early days, no overhead at the end of a measurement
+ was present back then anyway so this should be ok.
+ 
+ With newer files a measurementlog was added, in which each task is logged with a time stamp. In this case 
+ it is a simple matter to calculate the time difference between the beginning end ending of the task "acquiring".
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.MeasurementInfo.startAcquireTime">
+	<summary>
+ The moment (in seconds in the measurement) at which data acquisition starts.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.MeasurementInfo.endAcquireTime">
+	<summary>
+ The moment (in seconds in the measurement) at which data acquisition ends.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.DetectorBackgroundNoiselevel.DetectorBackgrounds">
+	<summary>
+ Average background noise level in mV. Order is same as Cyto__OLDsettings.channels.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.Data.Data.DetectorBackgroundNoiselevel.Buffer">
+	<summary>
+ Contains block of data which was obtained using non-trigger modus. This block is the base of the Detectorbackgrounds, and is only kept to have a means to check the backgrounds afterwards
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DetectorBackgroundNoiselevel.#ctor(System.Byte[],Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Provide an non-triggered block of data to have the backgroundlevels of the detectors calculated.
+ </summary>
+	<param name="buffer"></param>
+	<param name="CytoSettings"></param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.retrieveType">
+	<summary>
+ legacy function to retrieve the correct _sensorType for old files that only had a _description serialized directly
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.add(System.Double,System.Double,System.Int32)">
+	<summary>
+ Adds value, but only if checkinputOK checks out
+ </summary>
+	<param name="var"></param>
+	<param name="maxChange"></param>
+	<param name="count"></param>
+	<returns>checkinputOK()</returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.add(System.Double,System.DateTime)">
+	<summary>
+ Adds value, without input check.
+ </summary>
+	<param name="var"></param>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.add(System.Double)">
+	<summary>
+ Adds value, without input check. 
+ </summary>
+	<param name="var"></param>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.getLastTime(System.Int32)">
+	<summary>
+ Get last n entries of the time information
+ </summary>
+	<param name="n"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.getMean(System.DateTime,System.TimeSpan)">
+	<summary>
+ Calculates mean of the data recorded during the specified timeinterval
+ </summary>
+	<param name="t"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.getMeanTime(System.Int32)">
+	<summary>
+ Get mean over last n entries
+ </summary>
+	<param name="n"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.getMeanUncheckValues(System.Int32)">
+	<summary>
+ Calculates mean of the data recorded from the last x samples
+ </summary>
+	<param name="x"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.checkInputOK(System.Double,System.Int32,System.Double)">
+	<summary>
+ Checks if input value has smaller change then maxChange during count last samples
+ </summary>
+	<param name="maxChange"></param>
+	<param name="count"></param>
+	<param name="input"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Data.Data.DataPointList.getTable">
+	<summary>
+ Returns a formatted table of datapoints
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.CytoSettings.PIC.CytoSelector_settings.FlushTime(System.Int32)">
+	<summary>
+ Calculates the needed flush time for a specific valve
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.MeasurementSettings.Measurement.setCytoSettings(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Manually set CytoSettings. To be used for backwards compatibility if no CytoSettings were saved with the measurementsettings.
+ </summary>
+	<param name="c"></param>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.MeasurementSettings.Measurement.RepeatID">
+	<summary>
+ Keeps track on how maniest measurement this is. (Only  important if repeat &gt; 1)
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:Cyto__OLD.MeasurementSettings.Measurement.StopAfterTime">
+	<summary>
+ Depreciated
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.MeasurementSettings.Measurement.getMemorySize">
+	<summary>
+ Returns buffer size for one channel
+ </summary>
+	<returns></returns>
+	<remarks>Multiply by numberofchannels to get total memorysize for one block</remarks>
+</member><member name="M:Cyto__OLD.MeasurementSettings.Measurement.getTriggerLevel1mV(Cyto__OLD.CytoSettings.Cyto__OLDSetting)">
+	<summary>
+ Depreciated. Use getTriggerLevel1mV() instead
+ </summary>
+	<param name="cytosettings"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.MeasurementSettings.Measurement.getFlowrate">
+	<summary>
+ CytoSettings need to be set in order for this to work!
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.MeasurementSettings.Measurement.getTriggerChannels">
+	<summary>
+ Gets a list of the selected triggerlevels.
+ </summary>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Serializing.SerializeObject.#ctor(System.Object,System.String)">
+	<summary>
+ When using this constructor, this instance will automatically start serializing the data object to the file in filename
+ </summary>
+	<param name="data">The object to be serialized</param>
+	<param name="filename">The file in which the object should be serialized</param>
+	<remarks>Existing files will be overwritten without questioning!</remarks>
+</member><member name="M:Cyto__OLD.Serializing.SerializeObject.#ctor(System.String)">
+	<summary>
+ When using this constructor, this instance will automatically start dederializing the file from filename. The deserialized object can be retrieved using the data property.
+ </summary>
+	<param name="filename">The file which should be deserialized</param>
+	<remarks></remarks>
+</member><member name="M:Cyto__OLD.Serializing.SerializeObject.save_worker_DoWork(System.ComponentModel.BackgroundWorker,System.ComponentModel.DoWorkEventArgs)">
+	<summary>
+ Saves an _data object as a serialized stream in _filename. 
+ </summary>
+	<remarks>Existing files will be overwritten without questioing</remarks>
+</member><member name="T:Cyto__OLD.Serializing.SerializeObject">
+	<summary>
+ This class provides a manner to keep track of the (de)serialzing process by providing a Progress property.
+ This should be done by handling the ProgresChanged event.
+ </summary>
+	<remarks>Loading process does not work properly :( 
+ The deserializing itself seems to take time to. I don't know who to check the progress of the BF stream.
+ Loading Progress will be set 100 far to early</remarks>
+</member>
+</members>
+</doc>
