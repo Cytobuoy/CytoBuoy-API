@@ -3,26 +3,22 @@
 % Gijs van der Veen, Kevin van Hecke, Bouke Krom.
 % CytoBuoy BV, 2011
 
-% Tested to work with CytoSense.dll version 2.9.1.0 with Matlab version 2015b
+% Tested to work with CytoSense.dll version 2.11.0.0 with Matlab version 2015b
 
 %% General processing
 
-% Determine if Matlab is 32 or 64 bit, take appropriate dll.
-if strcmp(computer ,'PCWIN64')
-    path = [pwd '\x64\CytoSense.dll'];
-else
-    path = [pwd '\x86\CytoSense.dll'];
-end
+% Path to API dll.
+path = [pwd '..\..\..\CytoSense_API\AnyCPU\CytoSense.dll'];
 
 % Add assembly; path must point to the CytoSense DLL
 NET.addAssembly(path);
 
 % Load a datafile into memory, one of these example files. Select by uncommenting one:
 %file = [pwd '..\..\..\Datafile_examples\data.cyz']; % Just a regular file or ...
-%file = [pwd '..\..\..\Datafile_examples\data iif.cyz']; % A file with pictures or ...
+file = [pwd '..\..\..\Datafile_examples\data iif.cyz']; % A file with pictures or ...
 %file = [pwd '..\..\..\Datafile_examples\data curv.cyz']; % A file with a curvature channel or ...
 %file = [pwd '..\..\..\Datafile_examples\data PMTTemp.cyz']; % A file with temperature data or...
-file = [pwd '..\..\..\Datafile_examples\data laserdistance (tartu).cyz']; % A file with two-laser pulses
+%file = [pwd '..\..\..\Datafile_examples\data laserdistance (tartu).cyz']; % A file with two-laser pulses
 
 ML = CytoSense.Interfaces.MatlabInterface(file);
 
@@ -139,7 +135,7 @@ TrgChnsStr = cell(Ntrg,1);
 count = 1;
 for i = 1:length(TrgChns)
    if TrgChns(i)
-       chn = char(DFW.CytoSettings.channels.Get(TrgChns(i)).name);
+       chn = char(DFW.CytoSettings.channels.Get(TrgChns(i)-1).name);
        TrgChnsStr{count} = chn;
        count = count+1;
    end
@@ -195,7 +191,7 @@ end
 %samples. If only samples from during the measurement are needed, this can
 %be done because each sample is saved with a time stamp. I will however not
 %include it in this example for now.
-if DFW.CytoSettings.hasPIC
+if DFW.CytoSettings.hasaPic
    if DFW.CytoSettings.PIC.I2CTemp_Sheath
         SheathTemp =   double( DFW.MeasurementInfo.sensorLogs.SheathTemp.getMean);
    end
